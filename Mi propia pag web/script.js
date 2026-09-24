@@ -3126,3 +3126,949 @@ console.log(
 console.log(
     "💻 JavaScript ONLINE."
 );
+
+
+
+/* =========================================================
+   🌎 SISTEMA DE IDIOMAS
+   Español 🇪🇸 / English 🇬🇧
+   ========================================================= */
+
+const traducciones = {
+
+    es: {
+        idioma: "🇬🇧 English",
+
+        herramientas: "Herramientas del portfolio",
+        modoPresentacion: "Modo presentación",
+        modoAccesible: "Modo accesibilidad",
+        buscar: "Buscar",
+        abrirBuscador: "Abrir buscador",
+        cerrar: "Cerrar buscador",
+
+        buscadorTitulo: "🔎 Buscar en mi portfolio",
+        buscadorPlaceholder:
+            "Buscar experiencia, HTML, JavaScript...",
+
+        portfolio: "PORTFOLIO PERSONAL",
+        subtitulo: "Programación | Ciberseguridad",
+        frase:
+            "🌻 Un portfolio en construcción, como un jardín.",
+
+        cambiarMomento:
+            "🌞 Cambiar momento del día",
+
+        jardinLoco:
+            "🦋 Activar jardín loco",
+
+        ambiente:
+            "Cambiar ambiente",
+
+        jardin: "Jardín",
+        atardecer: "Atardecer",
+        noche: "Noche",
+        cyber: "Cyber",
+
+        navegacion:
+            "Navegación principal",
+
+        sobreMi: "Sobre mí",
+        experiencia: "Experiencia",
+        estudios: "Estudios",
+        habilidades: "Habilidades",
+        laboratorio: "Laboratorio",
+        cyberLab: "Cyber Lab",
+        expectativa: "Expectativa",
+        contacto: "Contacto",
+
+        navegacionInteractiva:
+            "NAVEGACIÓN INTERACTIVA",
+
+        explora:
+            "🌿 Explorá",
+
+        recorrido:
+            "Cada elemento representa una parte de mi recorrido.",
+
+        perfil:
+            "01 · PERFIL",
+
+        conoceme:
+            "🌻 Conoceme",
+
+        disponibilidad:
+            "🌱 Disponibilidad",
+
+        experienciaLaboral:
+            "Experiencia Laboral",
+
+        formacion:
+            "03 · FORMACIÓN",
+
+        misEstudios:
+            "Mis estudios",
+
+        habilidadesTitulo:
+            "Habilidades",
+
+        habilidadesInterpersonales:
+            "🤝 Habilidades interpersonales",
+
+        actualmenteAprendiendo:
+            "💻 Actualmente aprendiendo",
+
+        conocimientosTecnicos:
+            "Conocimientos técnicos",
+
+        idiomas:
+            "🌎 Idiomas",
+
+        portfolio:
+            "🚀 Portfolio",
+
+        experimentos:
+            "05 · EXPERIMENTOS",
+
+        laboratorioTitulo:
+            "🧪 Laboratorio",
+
+        laboratorioTexto:
+            "Este espacio muestra algunos de mis experimentos mientras aprendo programación.",
+
+        experimentoHTML:
+            "🌐 Experimento HTML",
+
+        htmlDescripcion:
+            "Estructuras semánticas, enlaces y elementos interactivos.",
+
+        ejecutarExperimento:
+            "Ejecutar experimento",
+
+        experimentoCSS:
+            "🎨 Experimento CSS",
+
+        cssDescripcion:
+            "Animaciones, transformaciones y efectos visuales.",
+
+        activarCSS:
+            "Activar CSS",
+
+        experimentoJS:
+            "⚡ Experimento JavaScript",
+
+        jsDescripcion:
+            "Eventos, DOM, interacción y lógica.",
+
+        ejecutarJS:
+            "Ejecutar JavaScript",
+
+        esperando:
+            "Esperando...",
+
+        cyberEtiqueta:
+            "06 · CYBERSECURITY",
+
+        cyberTitulo:
+            "🔐 Mini laboratorio de ciberseguridad",
+
+        cyberTexto:
+            "Probá qué tan segura sería una contraseña. Este ejercicio es educativo y no guarda lo que escribís.",
+
+        passwordPlaceholder:
+            "Escribí una contraseña",
+
+        esperandoAnalisis:
+            "Esperando análisis...",
+
+        system:
+            "07 · SYSTEM",
+
+        estadoSistema:
+            "📡 Estado del sistema",
+
+        online:
+            "ONLINE",
+
+        activo:
+            "ACTIVO",
+
+        detectando:
+            "DETECTANDO...",
+
+        disponibilidadEtiqueta:
+            "08 · DISPONIBILIDAD",
+
+        expectativaSalarial:
+            "Expectativa salarial",
+
+        salarioMinimo:
+            "💰 Salario mínimo aceptado",
+
+        contactoEtiqueta:
+            "09 · CONTACTO",
+
+        contactarme:
+            "🌙 Contactarme",
+
+        descargarCV:
+            "📄 Descargar CV",
+
+        curriculum:
+            "Currículum Vitae",
+
+        ubicacion:
+            "📍 Ubicación",
+
+        email:
+            "📧 Email",
+
+        enviarCorreo:
+            "Enviar correo",
+
+        copiar:
+            "📋 Copiar",
+
+        telefono:
+            "📞 Teléfono",
+
+        linkedin:
+            "💼 LinkedIn",
+
+        github:
+            "😼 GitHub",
+
+        volverInicio:
+            "⬆ Volver al inicio",
+
+        footer:
+            "🌻 Hecho mientras aprendo. 🌻"
+    },
+
+
+    en: {
+
+        idioma: "🇦🇷 Español",
+
+        herramientas: "Portfolio tools",
+        modoPresentacion: "Presentation mode",
+        modoAccesible: "Accessibility mode",
+        buscar: "Search",
+        abrirBuscador: "Open search",
+        cerrar: "Close search",
+
+        buscadorTitulo:
+            "🔎 Search my portfolio",
+
+        buscadorPlaceholder:
+            "Search experience, HTML, JavaScript...",
+
+        portfolio:
+            "PERSONAL PORTFOLIO",
+
+        subtitulo:
+            "Programming | Cybersecurity",
+
+        frase:
+            "🌻 A portfolio under construction, like a garden.",
+
+        cambiarMomento:
+            "🌞 Change time of day",
+
+        jardinLoco:
+            "🦋 Activate crazy garden",
+
+        ambiente:
+            "Change environment",
+
+        jardin: "Garden",
+        atardecer: "Sunset",
+        noche: "Night",
+        cyber: "Cyber",
+
+        navegacion:
+            "Main navigation",
+
+        sobreMi: "About me",
+        experiencia: "Experience",
+        estudios: "Education",
+        habilidades: "Skills",
+        laboratorio: "Laboratory",
+        cyberLab: "Cyber Lab",
+        expectativa: "Expectations",
+        contacto: "Contact",
+
+        navegacionInteractiva:
+            "INTERACTIVE NAVIGATION",
+
+        explora:
+            "🌿 Explore",
+
+        recorrido:
+            "Each element represents part of my journey.",
+
+        perfil:
+            "01 · PROFILE",
+
+        conoceme:
+            "🌻 Get to know me",
+
+        disponibilidad:
+            "🌱 Availability",
+
+        experienciaLaboral:
+            "Work Experience",
+
+        formacion:
+            "03 · EDUCATION",
+
+        misEstudios:
+            "Education",
+
+        habilidadesTitulo:
+            "Skills",
+
+        habilidadesInterpersonales:
+            "🤝 Interpersonal skills",
+
+        actualmenteAprendiendo:
+            "💻 Currently learning",
+
+        conocimientosTecnicos:
+            "Technical skills",
+
+        idiomas:
+            "🌎 Languages",
+
+        portfolio:
+            "🚀 Portfolio",
+
+        experimentos:
+            "05 · EXPERIMENTS",
+
+        laboratorioTitulo:
+            "🧪 Laboratory",
+
+        laboratorioTexto:
+            "This space showcases some of my experiments while I learn programming.",
+
+        experimentoHTML:
+            "🌐 HTML Experiment",
+
+        htmlDescripcion:
+            "Semantic structures, links and interactive elements.",
+
+        ejecutarExperimento:
+            "Run experiment",
+
+        experimentoCSS:
+            "🎨 CSS Experiment",
+
+        cssDescripcion:
+            "Animations, transformations and visual effects.",
+
+        activarCSS:
+            "Activate CSS",
+
+        experimentoJS:
+            "⚡ JavaScript Experiment",
+
+        jsDescripcion:
+            "Events, DOM, interaction and logic.",
+
+        ejecutarJS:
+            "Run JavaScript",
+
+        esperando:
+            "Waiting...",
+
+        cyberEtiqueta:
+            "06 · CYBERSECURITY",
+
+        cyberTitulo:
+            "🔐 Mini cybersecurity laboratory",
+
+        cyberTexto:
+            "Test how secure a password would be. This exercise is educational and does not store what you type.",
+
+        passwordPlaceholder:
+            "Enter a password",
+
+        esperandoAnalisis:
+            "Waiting for analysis...",
+
+        system:
+            "07 · SYSTEM",
+
+        estadoSistema:
+            "📡 System status",
+
+        online:
+            "ONLINE",
+
+        activo:
+            "ACTIVE",
+
+        detectando:
+            "DETECTING...",
+
+        disponibilidadEtiqueta:
+            "08 · AVAILABILITY",
+
+        expectativaSalarial:
+            "Salary expectations",
+
+        salarioMinimo:
+            "💰 Minimum accepted salary",
+
+        contactoEtiqueta:
+            "09 · CONTACT",
+
+        contactarme:
+            "🌙 Contact me",
+
+        descargarCV:
+            "📄 Download CV",
+
+        curriculum:
+            "Resume",
+
+        ubicacion:
+            "📍 Location",
+
+        email:
+            "📧 Email",
+
+        enviarCorreo:
+            "Send email",
+
+        copiar:
+            "📋 Copy",
+
+        telefono:
+            "📞 Phone",
+
+        linkedin:
+            "💼 LinkedIn",
+
+        github:
+            "😼 GitHub",
+
+        volverInicio:
+            "⬆ Back to top",
+
+        footer:
+            "🌻 Made while I learn. 🌻"
+    }
+};
+
+
+/* =========================================================
+   ELEMENTOS A TRADUCIR
+   ========================================================= */
+
+function prepararTraducciones() {
+
+    const elementos = {
+
+        idiomaBtn: "#idiomaBtn",
+
+        portfolio: ".eyebrow",
+        subtitulo: ".subtitulo",
+        frase: ".fraseJardin",
+
+        cambiarMomento: "#modoCampo",
+        jardinLoco: "#modoLocura",
+
+        sobreMi:
+            '#navegacionPrincipal a[href="#sobre-mi"]',
+
+        experiencia:
+            '#navegacionPrincipal a[href="#experience"]',
+
+        estudios:
+            '#navegacionPrincipal a[href="#mis-estudios"]',
+
+        habilidades:
+            '#navegacionPrincipal a[href="#habilidades"]',
+
+        laboratorio:
+            '#navegacionPrincipal a[href="#laboratorio"]',
+
+        cyberLab:
+            '#navegacionPrincipal a[href="#cyberLab"]',
+
+        expectativa:
+            '#navegacionPrincipal a[href="#salario"]',
+
+        contacto:
+            '#navegacionPrincipal a[href="#contacto"]',
+
+        navegacionInteractiva:
+            "#jardinNav .etiqueta",
+
+        explora:
+            "#jardinNav h2",
+
+        recorrido:
+            "#jardinNav > p",
+
+        perfil:
+            "#sobre-mi .etiqueta",
+
+        sobreMiTitulo:
+            "#sobre-mi h2",
+
+        experienciaEtiqueta:
+            "#experience .etiqueta",
+
+        experienciaTitulo:
+            "#experience h2",
+
+        formacion:
+            "#mis-estudios .etiqueta",
+
+        misEstudiosTitulo:
+            "#mis-estudios h2",
+
+        habilidadesEtiqueta:
+            "#habilidades .etiqueta",
+
+        habilidadesTitulo:
+            "#habilidades h2",
+
+        experimentos:
+            "#laboratorio .etiqueta",
+
+        laboratorioTitulo:
+            "#laboratorio h2",
+
+        laboratorioTexto:
+            "#laboratorio > p",
+
+        cyberEtiqueta:
+            "#cyberLab .etiqueta",
+
+        cyberTitulo:
+            "#cyberLab h2",
+
+        cyberTexto:
+            "#cyberLab > p",
+
+        passwordInput:
+            "#passwordInput",
+
+        esperandoAnalisis:
+            "#passwordResultado",
+
+        system:
+            "#estado .etiqueta",
+
+        estadoSistema:
+            "#estado h2",
+
+        disponibilidadEtiqueta:
+            "#salario .etiqueta",
+
+        expectativaSalarial:
+            "#salario h2",
+
+        contactoEtiqueta:
+            "#contacto .etiqueta",
+
+        contactarme:
+            "#contacto h2",
+
+        footer:
+            ".footerFinal"
+    };
+
+    return elementos;
+}
+
+
+/* =========================================================
+   CAMBIAR TEXTO
+   ========================================================= */
+
+function cambiarTexto(selector, texto) {
+
+    const elemento = $(selector);
+
+    if (!elemento) return;
+
+    elemento.textContent = texto;
+}
+
+
+/* =========================================================
+   APLICAR IDIOMA
+   ========================================================= */
+
+let idiomaActual =
+    localStorage.getItem("idiomaPortfolio") || "es";
+
+
+function aplicarIdioma(idioma) {
+
+    idiomaActual = idioma;
+
+    const idiomaData =
+        traducciones[idioma];
+
+    if (!idiomaData) return;
+
+
+    /*
+       Cambiamos el idioma real del documento.
+    */
+
+    document.documentElement.lang = idioma;
+
+
+    /*
+       Botón de idioma
+    */
+
+    cambiarTexto(
+        "#idiomaBtn",
+        idiomaData.idioma
+    );
+
+
+    /*
+       Elementos generales
+    */
+
+    cambiarTexto(
+        ".eyebrow",
+        idiomaData.portfolio
+    );
+
+    cambiarTexto(
+        ".subtitulo",
+        idiomaData.subtitulo
+    );
+
+    cambiarTexto(
+        ".fraseJardin",
+        idiomaData.frase
+    );
+
+
+    /*
+       Controles
+    */
+
+    cambiarTexto(
+        "#modoCampo",
+        idiomaData.cambiarMomento
+    );
+
+    cambiarTexto(
+        "#modoLocura",
+        idiomaData.jardinLoco
+    );
+
+
+    /*
+       Navegación
+    */
+
+    cambiarTexto(
+        '#navegacionPrincipal a[href="#sobre-mi"]',
+        idiomaData.sobreMi
+    );
+
+    cambiarTexto(
+        '#navegacionPrincipal a[href="#experience"]',
+        idiomaData.experiencia
+    );
+
+    cambiarTexto(
+        '#navegacionPrincipal a[href="#mis-estudios"]',
+        idiomaData.estudios
+    );
+
+    cambiarTexto(
+        '#navegacionPrincipal a[href="#habilidades"]',
+        idiomaData.habilidades
+    );
+
+    cambiarTexto(
+        '#navegacionPrincipal a[href="#laboratorio"]',
+        idiomaData.laboratorio
+    );
+
+    cambiarTexto(
+        '#navegacionPrincipal a[href="#cyberLab"]',
+        idiomaData.cyberLab
+    );
+
+    cambiarTexto(
+        '#navegacionPrincipal a[href="#salario"]',
+        idiomaData.expectativa
+    );
+
+    cambiarTexto(
+        '#navegacionPrincipal a[href="#contacto"]',
+        idiomaData.contacto
+    );
+
+
+    /*
+       Jardín interactivo
+    */
+
+    cambiarTexto(
+        "#jardinNav .etiqueta",
+        idiomaData.navegacionInteractiva
+    );
+
+    cambiarTexto(
+        "#jardinNav h2",
+        idiomaData.explora
+    );
+
+    cambiarTexto(
+        "#jardinNav > p",
+        idiomaData.recorrido
+    );
+
+
+    /*
+       Botones del jardín
+    */
+
+    const botonesJardin =
+        $$(".jardinElementos button");
+
+    const textosJardin =
+        [
+            idiomaData.sobreMi,
+            idiomaData.experiencia,
+            idiomaData.estudios,
+            idiomaData.habilidades,
+            idiomaData.laboratorio,
+            idiomaData.contacto
+        ];
+
+    botonesJardin.forEach(
+        (boton, indice) => {
+
+            const span =
+                boton.querySelector(
+                    "span:not(.emojiGrande)"
+                );
+
+            if (span) {
+
+                span.textContent =
+                    textosJardin[indice];
+
+            }
+
+        }
+    );
+
+
+    /*
+       Secciones
+    */
+
+    cambiarTexto(
+        "#sobre-mi .etiqueta",
+        idiomaData.perfil
+    );
+
+    cambiarTexto(
+        "#sobre-mi h2",
+        idiomaData.sobreMi
+    );
+
+    cambiarTexto(
+        "#experience .etiqueta",
+        idiomaData.experiencia
+    );
+
+    cambiarTexto(
+        "#experience h2",
+        idiomaData.experienciaLaboral
+    );
+
+    cambiarTexto(
+        "#mis-estudios .etiqueta",
+        idiomaData.formacion
+    );
+
+    cambiarTexto(
+        "#mis-estudios h2",
+        idiomaData.misEstudios
+    );
+
+    cambiarTexto(
+        "#habilidades .etiqueta",
+        "04 · SKILLS"
+    );
+
+    cambiarTexto(
+        "#habilidades h2",
+        idiomaData.habilidadesTitulo
+    );
+
+    cambiarTexto(
+        "#laboratorio .etiqueta",
+        idiomaData.experimentos
+    );
+
+    cambiarTexto(
+        "#laboratorio h2",
+        idiomaData.laboratorioTitulo
+    );
+
+    cambiarTexto(
+        "#laboratorio > p",
+        idiomaData.laboratorioTexto
+    );
+
+    cambiarTexto(
+        "#cyberLab .etiqueta",
+        idiomaData.cyberEtiqueta
+    );
+
+    cambiarTexto(
+        "#cyberLab h2",
+        idiomaData.cyberTitulo
+    );
+
+    cambiarTexto(
+        "#cyberLab > p",
+        idiomaData.cyberTexto
+    );
+
+    cambiarTexto(
+        "#passwordInput",
+        ""
+    );
+
+    $("#passwordInput")?.setAttribute(
+        "placeholder",
+        idiomaData.passwordPlaceholder
+    );
+
+    cambiarTexto(
+        "#passwordResultado",
+        idiomaData.esperandoAnalisis
+    );
+
+    cambiarTexto(
+        "#estado .etiqueta",
+        idiomaData.system
+    );
+
+    cambiarTexto(
+        "#estado h2",
+        idiomaData.estadoSistema
+    );
+
+    cambiarTexto(
+        "#salario .etiqueta",
+        idiomaData.disponibilidadEtiqueta
+    );
+
+    cambiarTexto(
+        "#salario h2",
+        idiomaData.expectativaSalarial
+    );
+
+    cambiarTexto(
+        "#contacto .etiqueta",
+        idiomaData.contactoEtiqueta
+    );
+
+    cambiarTexto(
+        "#contacto h2",
+        idiomaData.contactarme
+    );
+
+    cambiarTexto(
+        ".footerFinal",
+        idiomaData.footer
+    );
+
+
+    /*
+       Buscador
+    */
+
+    cambiarTexto(
+        "#buscador h2",
+        idiomaData.buscadorTitulo
+    );
+
+    $("#campoBusqueda")?.setAttribute(
+        "placeholder",
+        idiomaData.buscadorPlaceholder
+    );
+
+
+    /*
+       Guardamos el idioma
+    */
+
+    localStorage.setItem(
+        "idiomaPortfolio",
+        idioma
+    );
+
+
+    /*
+       Evento visual
+    */
+
+    if (
+        typeof mostrarToast === "function"
+    ) {
+
+        mostrarToast(
+            idioma === "en"
+                ? "🇬🇧 English activated"
+                : "🇪🇸 Español activado"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   BOTÓN DE IDIOMA
+   ========================================================= */
+
+if (idiomaBtn) {
+
+    idiomaBtn.addEventListener(
+        "click",
+        () => {
+
+            const nuevoIdioma =
+                idiomaActual === "es"
+                    ? "en"
+                    : "es";
+
+            aplicarIdioma(
+                nuevoIdioma
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   INICIAR IDIOMA
+   ========================================================= */
+
+aplicarIdioma(
+    idiomaActual
+);
