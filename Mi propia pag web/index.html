@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio de Florencia Valentina Miño: programación, ciberseguridad, experiencia y proyectos.">
+    <link rel="stylesheet" href="style.css">
+    <title>Florencia Valentina Miño | Programación y Ciberseguridad</title>
+</head>
+<body>
+
+<div id="barraLectura"></div>
+
+<div id="herramientas" aria-label="Herramientas del portfolio">
+    <button id="modoPresentacion" title="Modo presentación" aria-label="Modo presentación">🎬</button>
+    <button id="modoAccesible" title="Modo accesibilidad" aria-label="Modo accesibilidad">♿</button>
+    <button id="abrirBuscador" title="Buscar" aria-label="Abrir buscador">🔎</button>
+</div>
+
+<div id="buscador" aria-hidden="true">
+    <div class="buscadorCaja">
+        <button id="cerrarBuscador" class="cerrar" aria-label="Cerrar buscador">✕</button>
+        <h2>🔎 Buscar en mi portfolio</h2>
+        <input type="search" id="campoBusqueda" placeholder="Buscar experiencia, HTML, JavaScript..." autocomplete="off">
+        <div id="resultadosBusqueda"></div>
+    </div>
+</div>
+
+<div id="ambiente" aria-hidden="true">
+    <div id="sol">☀️</div>
+    <div id="rayos">☀️ ☀️ ☀️</div>
+    <div id="luna">🌙</div>
+    <div id="estrellas">✦　⭐　✧　✨　⭐　✦　⋆　✨</div>
+    <div id="mariposas">🦋　🦋　🦋　🦋</div>
+    <div id="hojas">🍃　🍂　🍃　🍃　🍂　🍃</div>
+    <div id="niebla">☁️　☁️　☁️</div>
+    <div id="luciernagas">✨　·　✨　·　✨　·　✨</div>
+</div>
+
+<button id="idiomaBtn" aria-label="Cambiar idioma">🇬🇧 English</button>
+
+<header id="inicio">
+    <img src="valchu.jpg" alt="Valentina Miño" width="180">
+    <p class="eyebrow">PORTFOLIO PERSONAL</p>
+    <h1>Florencia Valentina Miño</h1>
+    <p class="subtitulo">Programación | Ciberseguridad</p>
+    <p class="fraseJardin">🌻 Un portfolio en construcción, como un jardín.</p>
+
+    <div class="controlesPrincipales">
+        <button id="modoCampo">🌞 Cambiar momento del día</button>
+        <button id="modoLocura">🦋 Activar jardín loco</button>
+    </div>
+
+    <div id="selectorAmbiente" aria-label="Cambiar ambiente">
+        <button data-ambiente="jardin" title="Jardín">🌿</button>
+        <button data-ambiente="atardecer" title="Atardecer">🌅</button>
+        <button data-ambiente="noche" title="Noche">🌙</button>
+        <button data-ambiente="cyber" title="Cyber">💻</button>
+    </div>
+
+    <nav id="navegacionPrincipal" aria-label="Navegación principal">
+        <ul>
+            <li><a href="#sobre-mi">Sobre mí</a></li>
+            <li><a href="#experience">Experiencia</a></li>
+            <li><a href="#mis-estudios">Estudios</a></li>
+            <li><a href="#habilidades">Habilidades</a></li>
+            <li><a href="#laboratorio">Laboratorio</a></li>
+            <li><a href="#cyberLab">Cyber Lab</a></li>
+            <li><a href="#salario">Expectativa</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+
+<section id="jardinNav" class="seccionEspecial">
+    <span class="etiqueta">NAVEGACIÓN INTERACTIVA</span>
+    <h2>🌿 Explorá </h2>
+    <p>Cada elemento representa una parte de mi recorrido.</p>
+    <div class="jardinElementos">
+        <button data-ir="#sobre-mi"><span class="emojiGrande">🌻</span><span>Sobre mí</span></button>
+        <button data-ir="#experience"><span class="emojiGrande">🌳</span><span>Experiencia</span></button>
+        <button data-ir="#mis-estudios"><span class="emojiGrande">📖</span><span>Estudios</span></button>
+        <button data-ir="#habilidades"><span class="emojiGrande">🦋</span><span>Habilidades</span></button>
+        <button data-ir="#laboratorio"><span class="emojiGrande">🧪</span><span>Laboratorio</span></button>
+        <button data-ir="#contacto"><span class="emojiGrande">🌙</span><span>Contacto</span></button>
+    </div>
+</section>
+
+<section id="sobre-mi">
+    <span class="etiqueta">01 · PERFIL</span>
+    <h2>Sobre mí</h2>
+    <details>
+        <summary><strong>🌻 Conoceme</strong></summary>
+        <p>Soy estudiante de programación y ciberseguridad, con experiencia en atención al cliente, soporte y resolución de problemas. Actualmente busco desarrollarme profesionalmente en el área tecnológica. <a href="https://cert.efset.org/es/XMTznH" target="_blank" rel="noopener">Certificada en Inglés C1 por EFSET internacional.</a></p>
+    </details>
+    <details>
+        <summary><strong>🌱 Disponibilidad</strong></summary>
+        <p>Estoy en búsqueda activa de trabajo relacionado a la <b>programación</b> actualmente.</p>
+    </details>
+</section>
+
+<section id="experience">
+    <span class="etiqueta">02 · EXPERIENCIA</span>
+    <h2>Experiencia Laboral</h2>
+    <details>
+        <summary><b>💳 FISERV - ATENTO</b></summary>
+        <p>Ayudo a los comercios usuarios de terminales <a href="https://www.fiserv.com.ar/" target="_blank" rel="noopener">FISERV</a> a modificar los datos de su terminal, arreglar problemas que surgen en su operatoria, autorizo o ayudo a anular ventas de ser necesario, coordino el envío de insumos o servicio técnico.</p>
+        <p><i>Octubre 2023 - Actualmente</i></p>
+    </details>
+    <details>
+        <summary><b>🧾 Cotizador para Courtage - EficaSia</b></summary>
+        <p>Ayudaba a los compradores de la página web de <a href="https://institucional.ike.ar/" target="_blank" rel="noopener">IKE Argentina</a> a terminar con sus ventas cuando tenían problemas. Anteriormente había vendido intangibles dentro de la empresa para Santander Río, Macro, Zurich y Courtage.</p>
+        <p><i>Agosto 2019 - Julio 2023</i></p>
+    </details>
+</section>
+
+<section id="mis-estudios">
+    <span class="etiqueta">03 · FORMACIÓN</span>
+    <h2>Mis estudios</h2>
+    <details>
+        <summary><b>🔐 TryHackMe.com - Ciberseguridad</b></summary>
+        <p><strong>Terciario</strong><br><i>Septiembre 2026 - Actualmente</i></p>
+    </details>
+    <details>
+        <summary><b>💻 CFP Luz y Fuerza N°27 - Programación</b></summary>
+        <p><strong>Terciario</strong><br><i>Junio 2026 - Actualmente</i></p>
+    </details>
+    <details>
+        <summary><b>🏥 Icdp - Administración de clínicas</b></summary>
+        <p><strong>Terciario</strong><br><i>Febrero 2026 - Septiembre 2026</i></p>
+    </details>
+    <details>
+        <summary><b>🩸 Eddis - Auxiliar hemoterapia</b></summary>
+        <p><strong>Terciario</strong><br><i>Julio 2024 - Enero 2026</i></p>
+    </details>
+</section>
+
+<section id="habilidades">
+    <span class="etiqueta">04 · SKILLS</span>
+    <h2>Habilidades</h2>
+    <details>
+        <summary><strong>🤝 Habilidades interpersonales</strong></summary>
+        <ul class="listaHabilidades">
+            <li>Adaptabilidad</li><li>Manejo del estrés</li><li>Customer service</li><li>Problem solving</li><li>Teamwork</li><li>Communication</li><li>Time management</li>
+        </ul>
+    </details>
+    <details>
+        <summary><strong>💻 Actualmente aprendiendo</strong></summary>
+        <div id="conocimientos">
+            <h3>Conocimientos técnicos</h3>
+            <div class="skill"><label for="html">HTML5</label><progress id="html" value="50" max="100"></progress><span>50%</span></div>
+            <div class="skill"><label for="css">CSS</label><progress id="css" value="5" max="100"></progress><span>5%</span></div>
+            <div class="skill"><label for="javascript">JavaScript</label><progress id="javascript" value="5" max="100"></progress><span>5%</span></div>
+            <div class="skill"><label for="mysql">MySQL</label><progress id="mysql" value="0" max="100"></progress><span>0%</span></div>
+            <div class="skill"><label for="react">React</label><progress id="react" value="0" max="100"></progress><span>0%</span></div>
+            <div class="skill"><label for="Microsoft-Excel">Microsoft Excel</label><progress id="Microsoft-Excel" value="50" max="100"></progress><span>50%</span></div>
+            <div class="skill"><label for="Salesforce">Salesforce</label><progress id="Salesforce" value="80" max="100"></progress><span>80%</span></div>
+            <div class="skill"><label for="Power-BI">Power BI</label><progress id="Power-BI" value="30" max="100"></progress><span>30%</span></div>
+            <div class="skill"><label for="Microsoft-Office">Microsoft Office</label><progress id="Microsoft-Office" value="90" max="100"></progress><span>90%</span></div>
+            <div class="skill"><label for="ciberseguridad">Ciberseguridad</label><progress id="ciberseguridad" value="10" max="100"></progress><span>10%</span></div>
+        </div>
+    </details>
+    <details>
+        <summary><strong>🌎 Idiomas</strong></summary>
+        <p><b>Español - <i>Nativo</i></b><br><b>Inglés - <i>Intermedio</i></b></p>
+    </details>
+    <details>
+        <summary><strong>🚀 Portfolio</strong></summary>
+        <ul>
+            <li><a href="https://valchu-proyecto-10.netlify.app/" target="_blank" rel="noopener">Página Web sobre Skinwalkers</a></li>
+            <li><a href="https://valchu-proyecto-11.netlify.app/" target="_blank" rel="noopener">Blog dedicado a Robin Greenfield</a></li>
+        </ul>
+    </details>
+</section>
+
+<section id="laboratorio">
+    <span class="etiqueta">05 · EXPERIMENTOS</span>
+    <h2>🧪 Laboratorio</h2>
+    <p>Este espacio muestra algunos de mis experimentos mientras aprendo programación.</p>
+    <div class="experimentos">
+        <article class="experimento">
+            <h3>🌐 Experimento HTML</h3>
+            <p>Estructuras semánticas, enlaces y elementos interactivos.</p>
+            <button class="experimentoBtn">Ejecutar experimento</button>
+            <div class="resultadoExperimento">Esperando...</div>
+        </article>
+        <article class="experimento">
+            <h3>🎨 Experimento CSS</h3>
+            <p>Animaciones, transformaciones y efectos visuales.</p>
+            <button class="experimentoBtn">Activar CSS</button>
+            <div class="resultadoExperimento">Esperando...</div>
+        </article>
+        <article class="experimento">
+            <h3>⚡ Experimento JavaScript</h3>
+            <p>Eventos, DOM, interacción y lógica.</p>
+            <button class="experimentoBtn">Ejecutar JavaScript</button>
+            <div class="resultadoExperimento">Esperando...</div>
+        </article>
+    </div>
+</section>
+
+<section id="cyberLab">
+    <span class="etiqueta">06 · CYBERSECURITY</span>
+    <h2>🔐 Mini laboratorio de ciberseguridad</h2>
+    <p>Probá qué tan segura sería una contraseña. Este ejercicio es educativo y no guarda lo que escribís.</p>
+    <input type="password" id="passwordInput" placeholder="Escribí una contraseña" autocomplete="new-password">
+    <div id="passwordMeter"><div id="passwordBar"></div></div>
+    <p id="passwordResultado">Esperando análisis...</p>
+    <div id="passwordChecks"></div>
+</section>
+
+<section id="estado">
+    <span class="etiqueta">07 · SYSTEM</span>
+    <h2>📡 Estado del sistema</h2>
+    <div class="estadoGrid">
+        <div><span>🌐 Portfolio</span><strong>ONLINE</strong></div>
+        <div><span>💻 HTML</span><strong>ACTIVO</strong></div>
+        <div><span>🎨 CSS</span><strong>ACTIVO</strong></div>
+        <div><span>⚡ JavaScript</span><strong id="jsEstado">DETECTANDO...</strong></div>
+    </div>
+</section>
+
+<section id="salario">
+    <span class="etiqueta">08 · DISPONIBILIDAD</span>
+    <h2>Expectativa salarial</h2>
+    <details>
+        <summary><strong>💰 Salario mínimo aceptado</strong></summary>
+        <p>1200000 $ Neto mensual <i>(Salario mínimo aceptado)</i></p>
+    </details>
+</section>
+
+</main>
+
+<footer id="contacto">
+    <span class="etiqueta">09 · CONTACTO</span>
+    <h2>🌙 Contactarme</h2>
+    <details>
+        <summary>📄 Descargar CV</summary>
+        <p><a href="cv.pdf" download>Currículum Vitae</a></p>
+    </details>
+    <details>
+        <summary>📍 Ubicación</summary>
+        <p><b>San Telmo</b></p>
+    </details>
+    <details>
+        <summary>📧 Email</summary>
+        <p><a href="mailto:valchuginko@hotmail.com">Enviar correo</a> <button class="miniBtn" data-copiar="valchuginko@hotmail.com">📋 Copiar</button></p>
+    </details>
+    <details>
+        <summary>📞 Teléfono</summary>
+        <p><a href="tel:+54-1171201745">Número de teléfono</a></p>
+    </details>
+    <details>
+        <summary>💼 LinkedIn</summary>
+        <p><a href="https://www.linkedin.com/in/valentinamiao/" target="_blank" rel="noopener">LinkedIn</a></p>
+    </details>
+    <details>
+        <summary>😼 GitHub</summary>
+        <p><a href="https://github.com/valchuminodevop-cloud" target="_blank" rel="noopener">GitHub</a></p>
+    </details>
+    <hr>
+    <a href="#inicio"><button>⬆ Volver al inicio</button></a>
+    <p class="footerFinal">🌻 Hecho mientras aprendo. 🌻</p>
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<div id="easterEgg" aria-hidden="true"><span>🌻</span><strong>Encontraste el jardín secreto.</strong><small>Seguí explorando.</small></div>
+
+<script src="script.js"></script>
+</body>
+</html>
