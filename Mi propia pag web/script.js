@@ -1,94 +1,1346 @@
-/* =========================================================
-   🌻 PORTFOLIO DE VALENTINA
-   JavaScript — Jardín interactivo
-   ========================================================= */
+/* ============================================================
+   🌻 PORTFOLIO VALCHU
+   JavaScript principal
+   Jardín vivo + interacción + UX + Cyber Lab
+   ============================================================ */
 
 
-/* =========================================================
-   1. FUNCIONES AUXILIARES
-   ========================================================= */
+/* ============================================================
+   1. HELPERS
+   ============================================================ */
 
-const $ = (selector) => document.querySelector(selector);
+const $ = (selector, parent = document) =>
+    parent.querySelector(selector);
 
-const $$ = (selector) => document.querySelectorAll(selector);
+const $$ = (selector, parent = document) =>
+    [...parent.querySelectorAll(selector)];
 
 
-/* =========================================================
-   2. ELEMENTOS DEL DOM
-   ========================================================= */
+/* ============================================================
+   2. ELEMENTOS PRINCIPALES
+   ============================================================ */
 
 const body = document.body;
-
 const ambiente = $("#ambiente");
 
 const sol = $("#sol");
+const rayos = $("#rayos");
 const luna = $("#luna");
-const estrellas = $("#estrellas");
-const mariposas = $("#mariposas");
-const hojas = $("#hojas");
-const luciernagas = $("#luciernagas");
-const niebla = $("#niebla");
+const estrellasOriginales = $("#estrellas");
+const mariposasOriginales = $("#mariposas");
+const hojasOriginales = $("#hojas");
+const nieblaOriginal = $("#niebla");
+const luciernagasOriginales = $("#luciernagas");
 
 const modoCampo = $("#modoCampo");
+const modoLocura = $("#modoLocura");
+
 const idiomaBtn = $("#idiomaBtn");
+
+const modoPresentacion = $("#modoPresentacion");
+const modoAccesible = $("#modoAccesible");
+
+const abrirBuscador = $("#abrirBuscador");
+const buscador = $("#buscador");
+const cerrarBuscador = $("#cerrarBuscador");
+const campoBusqueda = $("#campoBusqueda");
+const resultadosBusqueda = $("#resultadosBusqueda");
 
 const barraLectura = $("#barraLectura");
 
-const btnPresentacion = $("#btnPresentacion");
-const btnAccesibilidad = $("#btnAccesibilidad");
-const btnBuscar = $("#btnBuscar");
-
-const buscador = $("#buscador");
-const inputBusqueda = $("#inputBusqueda");
-const resultadosBusqueda = $("#resultadosBusqueda");
-const cerrarBusqueda = $("#cerrarBusqueda");
-
 const toast = $("#toast");
-
 const easterEgg = $("#easterEgg");
 
 
-/* =========================================================
-   3. TOAST / NOTIFICACIONES
-   ========================================================= */
+/* ============================================================
+   3. ESTADO GLOBAL
+   ============================================================ */
 
-let toastTimer;
+let momento =
+    localStorage.getItem("portfolioMomento") || "jardin";
+
+let jardinLoco = false;
+
+let accesible =
+    localStorage.getItem("portfolioAccesible") === "true";
+
+let idioma =
+    localStorage.getItem("portfolioIdioma") || "es";
+
+let presentacion = false;
+
+let toastTimer = null;
+
+let mouseX = 0;
+let mouseY = 0;
+
+let suavizadoX = 0;
+let suavizadoY = 0;
+
+let scrollActual = 0;
+
+
+/* ============================================================
+   4. CSS DINÁMICO
+   ============================================================
+
+   Esta parte es importante.
+
+   En lugar de depender de que cada animación esté escrita
+   manualmente en style.css, JavaScript agrega una capa
+   adicional de CSS para crear el jardín vivo.
+   ============================================================ */
+
+const estiloDinamico = document.createElement("style");
+
+estiloDinamico.id = "jardinDinamicoCSS";
+
+estiloDinamico.textContent = `
+
+/* ------------------------------------------------------------
+   CAPA DINÁMICA
+------------------------------------------------------------ */
+
+#ambiente .vidaDinamica {
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+
+/* ------------------------------------------------------------
+   NUBES
+------------------------------------------------------------ */
+
+.nubeViva {
+    position:absolute;
+    left:-30vw;
+    width:180px;
+    height:55px;
+    border-radius:999px;
+    background:
+        radial-gradient(
+            circle at 30% 60%,
+            rgba(255,255,255,.95) 0 28%,
+            transparent 29%
+        ),
+        radial-gradient(
+            circle at 48% 40%,
+            rgba(255,255,255,.92) 0 34%,
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 68% 60%,
+            rgba(255,255,255,.88) 0 30%,
+            transparent 31%
+        );
+    filter:blur(1px);
+    opacity:.65;
+    animation:nubesCruzan linear infinite;
+    will-change:transform;
+}
+
+@keyframes nubesCruzan {
+
+    0% {
+        transform:translateX(-25vw);
+    }
+
+    100% {
+        transform:translateX(145vw);
+    }
+
+}
+
+
+/* ------------------------------------------------------------
+   NUBES GRANDES
+------------------------------------------------------------ */
+
+.nubeViva.grande {
+    width:300px;
+    height:85px;
+    opacity:.42;
+    filter:blur(2px);
+}
+
+
+/* ------------------------------------------------------------
+   NIEBLA
+------------------------------------------------------------ */
+
+.bancoNiebla {
+    position:absolute;
+    left:-35vw;
+    width:170vw;
+    height:90px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(255,255,255,.38),
+            rgba(255,255,255,.08) 45%,
+            transparent 72%
+        );
+    filter:blur(18px);
+    animation:nieblaViajera linear infinite;
+    opacity:.55;
+}
+
+@keyframes nieblaViajera {
+
+    0% {
+        transform:translateX(-15vw) scaleX(1);
+    }
+
+    50% {
+        transform:translateX(15vw) scaleX(1.08);
+    }
+
+    100% {
+        transform:translateX(45vw) scaleX(1);
+    }
+
+}
+
+
+/* ------------------------------------------------------------
+   MARIPOSAS INDIVIDUALES
+------------------------------------------------------------ */
+
+.mariposaViva {
+    position:absolute;
+    left:-80px;
+    font-size:var(--tamano);
+    filter:
+        drop-shadow(0 0 5px rgba(255,255,255,.7))
+        drop-shadow(0 0 12px rgba(255,216,77,.35));
+    animation:
+        mariposaViaje var(--duracion) linear infinite,
+        mariposaAleteo .65s ease-in-out infinite alternate;
+    animation-delay:var(--delay);
+    will-change:transform;
+}
+
+@keyframes mariposaViaje {
+
+    0% {
+        transform:
+            translate3d(-10vw,0,0)
+            rotate(-8deg);
+    }
+
+    20% {
+        transform:
+            translate3d(20vw,-70px,0)
+            rotate(10deg);
+    }
+
+    40% {
+        transform:
+            translate3d(45vw,40px,0)
+            rotate(-7deg);
+    }
+
+    60% {
+        transform:
+            translate3d(70vw,-100px,0)
+            rotate(8deg);
+    }
+
+    80% {
+        transform:
+            translate3d(95vw,50px,0)
+            rotate(-8deg);
+    }
+
+    100% {
+        transform:
+            translate3d(125vw,-40px,0)
+            rotate(5deg);
+    }
+
+}
+
+@keyframes mariposaAleteo {
+
+    from {
+        scale:1 .78;
+    }
+
+    to {
+        scale:1 1;
+    }
+
+}
+
+
+/* ------------------------------------------------------------
+   HOJAS
+------------------------------------------------------------ */
+
+.hojaViva {
+    position:absolute;
+    top:-80px;
+    left:var(--inicio);
+    font-size:var(--tamano);
+    opacity:.8;
+    animation:
+        hojaCaida var(--duracion) linear infinite,
+        hojaGiro 2.5s ease-in-out infinite alternate;
+    animation-delay:var(--delay);
+    will-change:transform;
+}
+
+@keyframes hojaCaida {
+
+    0% {
+        transform:
+            translate3d(0,-100px,0)
+            rotate(0deg);
+    }
+
+    25% {
+        transform:
+            translate3d(100px,25vh,0)
+            rotate(120deg);
+    }
+
+    50% {
+        transform:
+            translate3d(-80px,50vh,0)
+            rotate(240deg);
+    }
+
+    75% {
+        transform:
+            translate3d(120px,75vh,0)
+            rotate(330deg);
+    }
+
+    100% {
+        transform:
+            translate3d(-40px,120vh,0)
+            rotate(480deg);
+    }
+
+}
+
+@keyframes hojaGiro {
+
+    from {
+        scale:1;
+    }
+
+    to {
+        scale:.8 1.15;
+    }
+
+}
+
+
+/* ------------------------------------------------------------
+   POLEN / PARTÍCULAS
+------------------------------------------------------------ */
+
+.particulaViva {
+    position:absolute;
+    width:var(--tamano);
+    height:var(--tamano);
+    border-radius:50%;
+    background:rgba(255,240,155,.9);
+    box-shadow:
+        0 0 5px rgba(255,255,255,.8),
+        0 0 14px rgba(255,216,77,.6);
+    animation:
+        particulaFlota var(--duracion) ease-in-out infinite;
+    animation-delay:var(--delay);
+}
+
+@keyframes particulaFlota {
+
+    0% {
+        transform:
+            translate3d(0,110vh,0);
+        opacity:0;
+    }
+
+    15% {
+        opacity:.8;
+    }
+
+    50% {
+        transform:
+            translate3d(
+                var(--movimiento),
+                45vh,
+                0
+            );
+    }
+
+    85% {
+        opacity:.7;
+    }
+
+    100% {
+        transform:
+            translate3d(
+                calc(var(--movimiento) * -1),
+                -20vh,
+                0
+            );
+        opacity:0;
+    }
+
+}
+
+
+/* ------------------------------------------------------------
+   LUCIÉRNAGAS
+------------------------------------------------------------ */
+
+.luciernagaViva {
+    position:absolute;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:#fff5a3;
+    box-shadow:
+        0 0 5px #fff,
+        0 0 12px #ffe66d,
+        0 0 25px rgba(255,216,77,.8);
+    animation:
+        luciernagaVuela var(--duracion) ease-in-out infinite,
+        luciernagaBrilla 1.5s ease-in-out infinite alternate;
+    animation-delay:var(--delay);
+}
+
+@keyframes luciernagaVuela {
+
+    0% {
+        transform:translate(0,0);
+    }
+
+    25% {
+        transform:translate(80px,-40px);
+    }
+
+    50% {
+        transform:translate(-50px,-100px);
+    }
+
+    75% {
+        transform:translate(100px,-140px);
+    }
+
+    100% {
+        transform:translate(0,-200px);
+    }
+
+}
+
+@keyframes luciernagaBrilla {
+
+    from {
+        opacity:.25;
+        scale:.7;
+    }
+
+    to {
+        opacity:1;
+        scale:1.6;
+    }
+
+}
+
+
+/* ------------------------------------------------------------
+   ESTRELLAS
+------------------------------------------------------------ */
+
+.estrellaViva {
+    position:absolute;
+    color:white;
+    text-shadow:
+        0 0 5px white,
+        0 0 12px #fff;
+    animation:
+        estrellaParpadea var(--duracion) ease-in-out infinite alternate;
+    animation-delay:var(--delay);
+}
+
+@keyframes estrellaParpadea {
+
+    from {
+        opacity:.15;
+        transform:scale(.7);
+    }
+
+    to {
+        opacity:1;
+        transform:scale(1.35);
+    }
+
+}
+
+
+/* ------------------------------------------------------------
+   ONDAS AL HACER CLICK
+------------------------------------------------------------ */
+
+.ondaClick {
+    position:fixed;
+    width:20px;
+    height:20px;
+    border:2px solid rgba(255,216,77,.9);
+    border-radius:50%;
+    pointer-events:none;
+    z-index:9999;
+    animation:ondaExpande .8s ease-out forwards;
+}
+
+@keyframes ondaExpande {
+
+    from {
+        transform:translate(-50%,-50%) scale(.3);
+        opacity:1;
+    }
+
+    to {
+        transform:translate(-50%,-50%) scale(8);
+        opacity:0;
+    }
+
+}
+
+
+/* ------------------------------------------------------------
+   BRILLO DEL CURSOR
+------------------------------------------------------------ */
+
+.brilloCursor {
+    position:fixed;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:1;
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,230,109,.13),
+            transparent 70%
+        );
+    transform:translate(-50%,-50%);
+    transition:
+        width .3s ease,
+        height .3s ease;
+}
+
+
+/* ------------------------------------------------------------
+   MODO JARDÍN LOCO
+------------------------------------------------------------ */
+
+body.jardinLoco .mariposaViva {
+    animation-duration:
+        calc(var(--duracion) * .45),
+        .28s;
+}
+
+body.jardinLoco .hojaViva {
+    animation-duration:
+        calc(var(--duracion) * .55),
+        1s;
+}
+
+body.jardinLoco .nubeViva {
+    animation-duration:18s;
+}
+
+body.jardinLoco .particulaViva {
+    animation-duration:
+        calc(var(--duracion) * .5);
+}
+
+body.jardinLoco section {
+    animation:
+        seccionLoca 3s ease-in-out infinite alternate;
+}
+
+@keyframes seccionLoca {
+
+    from {
+        filter:
+            drop-shadow(
+                0 0 0 rgba(255,216,77,0)
+            );
+    }
+
+    to {
+        filter:
+            drop-shadow(
+                0 0 20px rgba(255,216,77,.18)
+            );
+    }
+
+}
+
+
+/* ------------------------------------------------------------
+   PRESENTACIÓN
+------------------------------------------------------------ */
+
+body.presentacion #herramientas,
+body.presentacion #idiomaBtn {
+    opacity:.15;
+    transition:.4s;
+}
+
+body.presentacion header {
+    min-height:80vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+body.presentacion main {
+    max-width:1250px;
+}
+
+body.presentacion section {
+    min-height:65vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+
+/* ------------------------------------------------------------
+   ACCESIBILIDAD
+------------------------------------------------------------ */
+
+body.accesible {
+    font-size:1.08rem;
+}
+
+body.accesible *,
+body.accesible *::before,
+body.accesible *::after {
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+}
+
+body.accesible button:focus,
+body.accesible a:focus,
+body.accesible summary:focus,
+body.accesible input:focus {
+    outline:4px solid #000;
+    outline-offset:5px;
+}
+
+
+/* ------------------------------------------------------------
+   RESULTADOS DE BÚSQUEDA
+------------------------------------------------------------ */
+
+.resultadoBusqueda {
+    display:block;
+    width:100%;
+    text-align:left;
+    background:rgba(255,255,255,.65);
+    margin:8px 0;
+}
+
+
+/* ------------------------------------------------------------
+   RESULTADO LABORATORIO
+------------------------------------------------------------ */
+
+.resultadoActivo {
+    animation:
+        resultadoAparece .5s ease;
+}
+
+@keyframes resultadoAparece {
+
+    from {
+        opacity:0;
+        transform:translateY(10px);
+    }
+
+    to {
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+/* ------------------------------------------------------------
+   CYBER MODE
+------------------------------------------------------------ */
+
+body.cyber {
+    --verde:#00ff9c;
+    --verde-claro:#00e5ff;
+    --amarillo:#00ff9c;
+    --naranja:#00d9ff;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(0,255,160,.15),
+            transparent 35%
+        ),
+        #020b09;
+    color:#caffed;
+}
+
+body.cyber section,
+body.cyber header {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,255,160,.08),
+            rgba(0,100,100,.12)
+        );
+    border-color:rgba(0,255,160,.25);
+}
+
+body.cyber .nubeViva {
+    opacity:.08;
+}
+
+body.cyber .particulaViva {
+    background:#00ff9c;
+    box-shadow:
+        0 0 8px #00ff9c,
+        0 0 20px #00ff9c;
+}
+
+body.cyber .mariposaViva {
+    filter:
+        grayscale(1)
+        sepia(1)
+        hue-rotate(90deg)
+        drop-shadow(0 0 10px #00ff9c);
+}
+
+
+/* ------------------------------------------------------------
+   RESPONSIVE
+------------------------------------------------------------ */
+
+@media (max-width:700px) {
+
+    .jardinElementos {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    #herramientas {
+        right:8px;
+        top:8px;
+    }
+
+    #herramientas button {
+        width:40px;
+        height:40px;
+    }
+
+    .nubeViva {
+        transform:scale(.7);
+    }
+
+    .mariposaViva {
+        font-size:22px;
+    }
+
+}
+
+
+/* ------------------------------------------------------------
+   REDUCIR MOVIMIENTO
+------------------------------------------------------------ */
+
+@media (prefers-reduced-motion:reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        scroll-behavior:auto !important;
+        transition-duration:.01ms !important;
+    }
+
+}
+
+`;
+
+document.head.appendChild(estiloDinamico);
+
+
+/* ============================================================
+   5. CREAR CAPAS DINÁMICAS
+   ============================================================ */
+
+function crearCapa(nombre) {
+
+    const capa =
+        document.createElement("div");
+
+    capa.className =
+        `vidaDinamica ${nombre}`;
+
+    capa.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+    ambiente.appendChild(capa);
+
+    return capa;
+}
+
+
+const capaNubes =
+    crearCapa("capaNubes");
+
+const capaNiebla =
+    crearCapa("capaNiebla");
+
+const capaMariposas =
+    crearCapa("capaMariposas");
+
+const capaHojas =
+    crearCapa("capaHojas");
+
+const capaParticulas =
+    crearCapa("capaParticulas");
+
+const capaLuciernagas =
+    crearCapa("capaLuciernagas");
+
+const capaEstrellas =
+    crearCapa("capaEstrellas");
+
+
+/* ============================================================
+   6. GENERADOR DE NÚMEROS ALEATORIOS
+   ============================================================ */
+
+function random(min, max) {
+
+    return Math.random() *
+        (max - min) +
+        min;
+
+}
+
+
+/* ============================================================
+   7. CREAR NUBES
+   ============================================================ */
+
+function crearNubes() {
+
+    const cantidad =
+        window.innerWidth < 700
+            ? 5
+            : 9;
+
+
+    for (
+        let i = 0;
+        i < cantidad;
+        i++
+    ) {
+
+        const nube =
+            document.createElement("div");
+
+        nube.className =
+            "nubeViva";
+
+
+        if (Math.random() > .65) {
+
+            nube.classList.add(
+                "grande"
+            );
+
+        }
+
+
+        nube.style.top =
+            `${random(5,48)}%`;
+
+
+        nube.style.animationDuration =
+            `${random(35,75)}s`;
+
+
+        nube.style.animationDelay =
+            `${random(-70,0)}s`;
+
+
+        nube.style.opacity =
+            random(.25,.7);
+
+
+        capaNubes.appendChild(
+            nube
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   8. CREAR BANCOS DE NIEBLA
+   ============================================================ */
+
+function crearNiebla() {
+
+    for (
+        let i = 0;
+        i < 5;
+        i++
+    ) {
+
+        const banco =
+            document.createElement("div");
+
+        banco.className =
+            "bancoNiebla";
+
+
+        banco.style.top =
+            `${random(55,95)}%`;
+
+
+        banco.style.height =
+            `${random(60,150)}px`;
+
+
+        banco.style.animationDuration =
+            `${random(25,50)}s`;
+
+
+        banco.style.animationDelay =
+            `${random(-40,0)}s`;
+
+
+        banco.style.opacity =
+            random(.15,.45);
+
+
+        capaNiebla.appendChild(
+            banco
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   9. CREAR MARIPOSAS
+   ============================================================ */
+
+function crearMariposas() {
+
+    const cantidad =
+        window.innerWidth < 700
+            ? 7
+            : 14;
+
+
+    const tipos = [
+        "🦋",
+        "🦋",
+        "🦋",
+        "🦋"
+    ];
+
+
+    for (
+        let i = 0;
+        i < cantidad;
+        i++
+    ) {
+
+        const mariposa =
+            document.createElement("span");
+
+        mariposa.className =
+            "mariposaViva";
+
+
+        mariposa.textContent =
+            tipos[
+                Math.floor(
+                    Math.random() *
+                    tipos.length
+                )
+            ];
+
+
+        mariposa.style.top =
+            `${random(15,80)}%`;
+
+
+        mariposa.style.setProperty(
+            "--tamano",
+            `${random(18,40)}px`
+        );
+
+
+        mariposa.style.setProperty(
+            "--duracion",
+            `${random(16,32)}s`
+        );
+
+
+        mariposa.style.setProperty(
+            "--delay",
+            `${random(-30,0)}s`
+        );
+
+
+        capaMariposas.appendChild(
+            mariposa
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   10. CREAR HOJAS
+   ============================================================ */
+
+function crearHojas() {
+
+    const tipos = [
+        "🍃",
+        "🍂",
+        "🍁",
+        "🌿"
+    ];
+
+
+    const cantidad =
+        window.innerWidth < 700
+            ? 12
+            : 24;
+
+
+    for (
+        let i = 0;
+        i < cantidad;
+        i++
+    ) {
+
+        const hoja =
+            document.createElement("span");
+
+        hoja.className =
+            "hojaViva";
+
+
+        hoja.textContent =
+            tipos[
+                Math.floor(
+                    Math.random() *
+                    tipos.length
+                )
+            ];
+
+
+        hoja.style.setProperty(
+            "--inicio",
+            `${random(0,100)}vw`
+        );
+
+
+        hoja.style.setProperty(
+            "--tamano",
+            `${random(15,32)}px`
+        );
+
+
+        hoja.style.setProperty(
+            "--duracion",
+            `${random(10,22)}s`
+        );
+
+
+        hoja.style.setProperty(
+            "--delay",
+            `${random(-25,0)}s`
+        );
+
+
+        capaHojas.appendChild(
+            hoja
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   11. CREAR PARTÍCULAS
+   ============================================================ */
+
+function crearParticulas() {
+
+    const cantidad =
+        window.innerWidth < 700
+            ? 25
+            : 55;
+
+
+    for (
+        let i = 0;
+        i < cantidad;
+        i++
+    ) {
+
+        const particula =
+            document.createElement("span");
+
+        particula.className =
+            "particulaViva";
+
+
+        particula.style.left =
+            `${random(0,100)}%`;
+
+
+        particula.style.setProperty(
+            "--tamano",
+            `${random(1,4)}px`
+        );
+
+
+        particula.style.setProperty(
+            "--movimiento",
+            `${random(-160,160)}px`
+        );
+
+
+        particula.style.setProperty(
+            "--duracion",
+            `${random(12,28)}s`
+        );
+
+
+        particula.style.setProperty(
+            "--delay",
+            `${random(-30,0)}s`
+        );
+
+
+        capaParticulas.appendChild(
+            particula
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   12. CREAR LUCIÉRNAGAS
+   ============================================================ */
+
+function crearLuciernagas() {
+
+    const cantidad =
+        window.innerWidth < 700
+            ? 14
+            : 28;
+
+
+    for (
+        let i = 0;
+        i < cantidad;
+        i++
+    ) {
+
+        const luz =
+            document.createElement("span");
+
+        luz.className =
+            "luciernagaViva";
+
+
+        luz.style.left =
+            `${random(5,95)}%`;
+
+
+        luz.style.top =
+            `${random(45,90)}%`;
+
+
+        luz.style.setProperty(
+            "--duracion",
+            `${random(5,12)}s`
+        );
+
+
+        luz.style.setProperty(
+            "--delay",
+            `${random(-12,0)}s`
+        );
+
+
+        capaLuciernagas.appendChild(
+            luz
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   13. CREAR ESTRELLAS
+   ============================================================ */
+
+function crearEstrellas() {
+
+    const cantidad =
+        window.innerWidth < 700
+            ? 30
+            : 65;
+
+
+    for (
+        let i = 0;
+        i < cantidad;
+        i++
+    ) {
+
+        const estrella =
+            document.createElement("span");
+
+        estrella.className =
+            "estrellaViva";
+
+
+        estrella.textContent =
+            Math.random() > .5
+                ? "✦"
+                : "·";
+
+
+        estrella.style.left =
+            `${random(0,100)}%`;
+
+
+        estrella.style.top =
+            `${random(2,65)}%`;
+
+
+        estrella.style.fontSize =
+            `${random(8,22)}px`;
+
+
+        estrella.style.setProperty(
+            "--duracion",
+            `${random(1.5,4)}s`
+        );
+
+
+        estrella.style.setProperty(
+            "--delay",
+            `${random(-5,0)}s`
+        );
+
+
+        capaEstrellas.appendChild(
+            estrella
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   14. INICIAR EL JARDÍN
+   ============================================================ */
+
+if (ambiente) {
+
+    crearNubes();
+    crearNiebla();
+    crearMariposas();
+    crearHojas();
+    crearParticulas();
+    crearLuciernagas();
+    crearEstrellas();
+
+}
+
+
+/* ============================================================
+   15. TOAST
+   ============================================================ */
 
 function mostrarToast(mensaje) {
 
     if (!toast) return;
 
-    toast.textContent = mensaje;
 
-    toast.classList.add("mostrar");
+    toast.textContent =
+        mensaje;
 
-    clearTimeout(toastTimer);
 
-    toastTimer = setTimeout(() => {
+    toast.classList.add(
+        "mostrar"
+    );
 
-        toast.classList.remove("mostrar");
 
-    }, 2500);
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "mostrar"
+                );
+
+            },
+            2600
+        );
+
 }
 
 
-/* =========================================================
-   4. CAMBIO DE MOMENTO DEL DÍA
-   ========================================================= */
+/* ============================================================
+   16. MOMENTOS DEL DÍA
+   ============================================================ */
 
-let momentoActual =
-    localStorage.getItem("momentoPortfolio") || "jardin";
+function aplicarMomento(nuevoMomento) {
 
+    momento =
+        nuevoMomento;
 
-function aplicarMomento(momento) {
-
-    momentoActual = momento;
-
-    /*
-       Quitamos TODOS los estados anteriores.
-       Incluimos cyber para evitar que se mezclen
-       los temas.
-    */
 
     body.classList.remove(
         "jardin",
@@ -98,157 +1350,264 @@ function aplicarMomento(momento) {
     );
 
 
-    body.classList.add(momento);
-
-
-    localStorage.setItem(
-        "momentoPortfolio",
-        momento
+    body.classList.add(
+        nuevoMomento
     );
 
 
-    if (modoCampo) {
+    localStorage.setItem(
+        "portfolioMomento",
+        nuevoMomento
+    );
 
-        if (momento === "jardin") {
 
-            modoCampo.textContent =
-                "🌞 Cambiar momento del día";
+    /*
+       Visibilidad de elementos
+    */
 
-        }
+    if (nuevoMomento === "jardin") {
 
-        if (momento === "atardecer") {
+        if (sol) sol.style.opacity = "1";
+        if (rayos) rayos.style.opacity = ".3";
 
-            modoCampo.textContent =
-                "🌅 Atardecer";
+        if (luna) luna.style.opacity = "0";
 
-        }
+        if (estrellasOriginales)
+            estrellasOriginales.style.opacity = "0";
 
-        if (momento === "noche") {
+        if (luciernagasOriginales)
+            luciernagasOriginales.style.opacity = "0";
 
-            modoCampo.textContent =
-                "🌙 Noche";
+        if (nieblaOriginal)
+            nieblaOriginal.style.opacity = "0";
 
-        }
+        capaEstrellas.style.opacity = "0";
+        capaLuciernagas.style.opacity = "0";
 
-        if (momento === "cyber") {
-
-            modoCampo.textContent =
-                "💻 Cyber Mode";
-
-        }
     }
+
+
+    if (nuevoMomento === "atardecer") {
+
+        if (sol) sol.style.opacity = ".8";
+        if (rayos) rayos.style.opacity = ".15";
+
+        if (luna) luna.style.opacity = ".25";
+
+        if (estrellasOriginales)
+            estrellasOriginales.style.opacity = ".15";
+
+        if (nieblaOriginal)
+            nieblaOriginal.style.opacity = ".25";
+
+        capaEstrellas.style.opacity = ".25";
+        capaLuciernagas.style.opacity = ".45";
+
+    }
+
+
+    if (nuevoMomento === "noche") {
+
+        if (sol) sol.style.opacity = "0";
+        if (rayos) rayos.style.opacity = "0";
+
+        if (luna) luna.style.opacity = "1";
+
+        if (estrellasOriginales)
+            estrellasOriginales.style.opacity = "1";
+
+        if (nieblaOriginal)
+            nieblaOriginal.style.opacity = ".45";
+
+        if (luciernagasOriginales)
+            luciernagasOriginales.style.opacity = "1";
+
+        capaEstrellas.style.opacity = "1";
+        capaLuciernagas.style.opacity = "1";
+
+    }
+
+
+    if (nuevoMomento === "cyber") {
+
+        if (sol) sol.style.opacity = ".1";
+        if (rayos) rayos.style.opacity = "0";
+
+        if (luna) luna.style.opacity = ".4";
+
+        if (estrellasOriginales)
+            estrellasOriginales.style.opacity = ".6";
+
+        capaEstrellas.style.opacity = ".8";
+        capaLuciernagas.style.opacity = ".8";
+
+    }
+
+
+    actualizarTextoMomento();
 
 }
 
 
-/*
-   Secuencia:
+function actualizarTextoMomento() {
 
-   jardín → atardecer → noche → jardín
-*/
+    if (!modoCampo) return;
 
-function cambiarMomento() {
 
-    if (momentoActual === "jardin") {
+    const textos = {
 
-        aplicarMomento("atardecer");
+        jardin:
+            "🌞 Jardín de día",
 
-    } else if (momentoActual === "atardecer") {
+        atardecer:
+            "🌅 Atardecer",
 
-        aplicarMomento("noche");
+        noche:
+            "🌙 Noche",
 
-    } else {
+        cyber:
+            "💻 Cyber Mode"
 
-        aplicarMomento("jardin");
+    };
 
-    }
+
+    modoCampo.textContent =
+        textos[momento] ||
+        textos.jardin;
 
 }
 
+
+/* ============================================================
+   17. BOTÓN CAMBIAR MOMENTO
+   ============================================================ */
 
 if (modoCampo) {
 
     modoCampo.addEventListener(
         "click",
-        cambiarMomento
-    );
-
-}
-
-
-/* =========================================================
-   5. SELECTOR DE TEMAS
-   ========================================================= */
-
-const botonesTema =
-    $$(".temaBtn");
-
-
-botonesTema.forEach((boton) => {
-
-    boton.addEventListener(
-        "click",
         () => {
 
-            const tema =
-                boton.dataset.tema;
+            const secuencia = [
+                "jardin",
+                "atardecer",
+                "noche"
+            ];
 
-            if (!tema) return;
 
-            aplicarMomento(tema);
+            let posicion =
+                secuencia.indexOf(
+                    momento
+                );
+
+
+            posicion++;
+
+
+            if (
+                posicion >=
+                secuencia.length
+            ) {
+
+                posicion = 0;
+
+            }
+
+
+            aplicarMomento(
+                secuencia[posicion]
+            );
+
 
             mostrarToast(
-                `Tema cambiado: ${tema}`
+                momento === "jardin"
+                    ? "🌻 Día en el jardín"
+                    : momento === "atardecer"
+                        ? "🌅 El sol está bajando"
+                        : "🌙 La noche llegó"
             );
 
         }
     );
 
-});
+}
 
 
-/* =========================================================
-   6. MODO JARDÍN LOCO 🌻🦋
-   ========================================================= */
+/* ============================================================
+   18. SELECTOR DE AMBIENTE
+   ============================================================ */
 
-const jardinLoco =
-    $("#jardinLoco");
+$$(
+    "#selectorAmbiente button"
+).forEach(
+    boton => {
+
+        boton.addEventListener(
+            "click",
+            () => {
+
+                const ambienteElegido =
+                    boton.dataset.ambiente;
 
 
-let jardinEstaLoco = false;
+                if (!ambienteElegido)
+                    return;
 
 
-if (jardinLoco) {
+                aplicarMomento(
+                    ambienteElegido
+                );
 
-    jardinLoco.addEventListener(
+
+                mostrarToast(
+                    `✨ Ambiente: ${boton.title}`
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* ============================================================
+   19. JARDÍN LOCO
+   ============================================================ */
+
+if (modoLocura) {
+
+    modoLocura.addEventListener(
         "click",
         () => {
 
-            jardinEstaLoco =
-                !jardinEstaLoco;
+            jardinLoco =
+                !jardinLoco;
+
 
             body.classList.toggle(
-                "gardenCrazy",
-                jardinEstaLoco
+                "jardinLoco",
+                jardinLoco
             );
 
 
-            if (jardinEstaLoco) {
+            if (jardinLoco) {
 
-                jardinLoco.textContent =
+                modoLocura.textContent =
                     "😈 Detener jardín loco";
 
+
                 mostrarToast(
-                    "🌻 ¡El jardín cobró vida!"
+                    "🦋 ¡El jardín cobró vida!"
                 );
 
             } else {
 
-                jardinLoco.textContent =
-                    "🌻 Jardín loco";
+                modoLocura.textContent =
+                    "🦋 Activar jardín loco";
+
 
                 mostrarToast(
-                    "🌿 El jardín volvió a la calma"
+                    "🌿 El jardín se calmó"
                 );
 
             }
@@ -259,253 +1618,257 @@ if (jardinLoco) {
 }
 
 
-/* =========================================================
-   7. MOVIMIENTO DEL AMBIENTE CON EL MOUSE
-   ========================================================= */
-
-let mouseX = 0;
-let mouseY = 0;
-
-let movimientoX = 0;
-let movimientoY = 0;
-
+/* ============================================================
+   20. MOVIMIENTO DEL MOUSE
+   ============================================================ */
 
 document.addEventListener(
     "mousemove",
-    (evento) => {
+    evento => {
 
         mouseX =
             evento.clientX /
             window.innerWidth -
-            0.5;
+            .5;
+
 
         mouseY =
             evento.clientY /
             window.innerHeight -
-            0.5;
+            .5;
 
     }
 );
 
 
-/*
-   requestAnimationFrame hace que
-   el movimiento sea más suave.
-*/
+function animarMouse() {
 
-function animarAmbiente() {
-
-    movimientoX +=
-        (mouseX - movimientoX) * 0.04;
-
-    movimientoY +=
-        (mouseY - movimientoY) * 0.04;
+    suavizadoX +=
+        (mouseX - suavizadoX) *
+        .045;
 
 
-    const movimientoHorizontal =
-        movimientoX * 35;
+    suavizadoY +=
+        (mouseY - suavizadoY) *
+        .045;
 
-    const movimientoVertical =
-        movimientoY * 25;
 
+    if (ambiente) {
+
+        ambiente.style.setProperty(
+            "--mouseX",
+            `${suavizadoX * 30}px`
+        );
+
+
+        ambiente.style.setProperty(
+            "--mouseY",
+            `${suavizadoY * 30}px`
+        );
+
+    }
+
+
+    /*
+       El sol responde mucho al cursor.
+    */
 
     if (sol) {
 
         sol.style.translate =
-            `${movimientoHorizontal}px
-             ${movimientoVertical}px`;
+            `${suavizadoX * 25}px
+             ${suavizadoY * 18}px`;
 
     }
 
+
+    /*
+       La luna se mueve más lentamente.
+    */
 
     if (luna) {
 
         luna.style.translate =
-            `${movimientoHorizontal * -0.5}px
-             ${movimientoVertical * -0.5}px`;
-
-    }
-
-
-    if (estrellas) {
-
-        estrellas.style.translate =
-            `${movimientoHorizontal * 0.3}px
-             ${movimientoVertical * 0.3}px`;
-
-    }
-
-
-    if (mariposas) {
-
-        mariposas.style.translate =
-            `${movimientoHorizontal * 1.5}px
-             ${movimientoVertical * 1.5}px`;
-
-    }
-
-
-    if (hojas) {
-
-        hojas.style.translate =
-            `${movimientoHorizontal * 1.8}px
-             ${movimientoVertical * 1.8}px`;
-
-    }
-
-
-    if (luciernagas) {
-
-        luciernagas.style.translate =
-            `${movimientoHorizontal * 1.2}px
-             ${movimientoVertical * 1.2}px`;
+            `${suavizadoX * -12}px
+             ${suavizadoY * -10}px`;
 
     }
 
 
     requestAnimationFrame(
-        animarAmbiente
+        animarMouse
     );
 
 }
 
 
-animarAmbiente();
+animarMouse();
 
 
-/* =========================================================
-   8. CHISPAS QUE SIGUEN AL CURSOR ✨
-   ========================================================= */
+/* ============================================================
+   21. BRILLO QUE SIGUE AL CURSOR
+   ============================================================ */
 
-let ultimaChispa = 0;
+const brilloCursor =
+    document.createElement("div");
+
+brilloCursor.className =
+    "brilloCursor";
+
+document.body.appendChild(
+    brilloCursor
+);
 
 
 document.addEventListener(
     "mousemove",
-    (evento) => {
+    evento => {
 
-        const ahora =
-            Date.now();
-
-
-        /*
-           Limitamos la cantidad de partículas
-           para no saturar el navegador.
-        */
-
-        if (
-            ahora - ultimaChispa < 80
-        ) {
-            return;
-        }
-
-
-        ultimaChispa = ahora;
-
-
-        const chispa =
-            document.createElement("span");
-
-
-        chispa.className =
-            "chispaCursor";
-
-
-        chispa.textContent =
-            Math.random() > 0.5
-                ? "✦"
-                : "✨";
-
-
-        chispa.style.left =
+        brilloCursor.style.left =
             `${evento.clientX}px`;
 
-
-        chispa.style.top =
+        brilloCursor.style.top =
             `${evento.clientY}px`;
-
-
-        document.body.appendChild(
-            chispa
-        );
-
-
-        setTimeout(() => {
-
-            chispa.remove();
-
-        }, 1000);
 
     }
 );
 
 
-/* =========================================================
-   9. NAVEGACIÓN DEL JARDÍN
-   ========================================================= */
+/* ============================================================
+   22. ONDAS AL HACER CLICK
+   ============================================================ */
 
-const botonesJardin =
-    $$(".gardenNav");
+document.addEventListener(
+    "click",
+    evento => {
 
-
-botonesJardin.forEach((boton) => {
-
-    boton.addEventListener(
-        "click",
-        () => {
-
-            const destino =
-                boton.dataset.target;
-
-
-            const seccion =
-                document.querySelector(
-                    destino
-                );
-
-
-            if (!seccion) return;
-
-
-            seccion.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-
-            boton.classList.add(
-                "gardenNavClick"
+        const onda =
+            document.createElement(
+                "span"
             );
 
 
-            setTimeout(() => {
+        onda.className =
+            "ondaClick";
 
-                boton.classList.remove(
-                    "gardenNavClick"
+
+        onda.style.left =
+            `${evento.clientX}px`;
+
+
+        onda.style.top =
+            `${evento.clientY}px`;
+
+
+        document.body.appendChild(
+            onda
+        );
+
+
+        setTimeout(
+            () => {
+
+                onda.remove();
+
+            },
+            850
+        );
+
+    }
+);
+
+
+/* ============================================================
+   23. NAVEGACIÓN DEL JARDÍN
+   ============================================================ */
+
+$$(
+    ".jardinElementos button"
+).forEach(
+    boton => {
+
+        boton.addEventListener(
+            "click",
+            () => {
+
+                const destino =
+                    boton.dataset.ir;
+
+
+                if (!destino)
+                    return;
+
+
+                const seccion =
+                    $(destino);
+
+
+                if (!seccion)
+                    return;
+
+
+                seccion.scrollIntoView({
+                    behavior:"smooth",
+                    block:"start"
+                });
+
+
+                boton.animate(
+                    [
+                        {
+                            transform:
+                                "scale(1)"
+                        },
+                        {
+                            transform:
+                                "scale(1.15) rotate(3deg)"
+                        },
+                        {
+                            transform:
+                                "scale(1)"
+                        }
+                    ],
+                    {
+                        duration:500
+                    }
                 );
 
-            }, 600);
+            }
+        );
 
-        }
-    );
-
-});
+    }
+);
 
 
-/* =========================================================
-   10. ANIMACIÓN DE SECCIONES AL HACER SCROLL
-   ========================================================= */
+/* ============================================================
+   24. REVEAL DE SECCIONES
+   ============================================================ */
 
-const elementosReveal =
-    $$(".reveal");
+const secciones =
+    $$("main section");
+
+
+secciones.forEach(
+    (seccion, indice) => {
+
+        seccion.classList.add(
+            "reveal"
+        );
+
+
+        seccion.style.transitionDelay =
+            `${Math.min(indice * .06,.35)}s`;
+
+    }
+);
 
 
 const observerReveal =
     new IntersectionObserver(
-        (entradas) => {
+        entradas => {
 
             entradas.forEach(
-                (entrada) => {
+                entrada => {
 
                     if (
                         entrada.isIntersecting
@@ -522,86 +1885,80 @@ const observerReveal =
 
         },
         {
-            threshold: 0.15
+            threshold:.12
         }
     );
 
 
-elementosReveal.forEach(
-    (elemento) => {
+secciones.forEach(
+    seccion => {
 
         observerReveal.observe(
-            elemento
+            seccion
         );
 
     }
 );
 
 
-/* =========================================================
-   11. NAVEGACIÓN ACTIVA
-   ========================================================= */
-
-const secciones =
-    $$("main section[id]");
-
+/* ============================================================
+   25. NAVEGACIÓN ACTIVA
+   ============================================================ */
 
 const enlacesNav =
-    $$("nav a[href^='#']");
+    $$(
+        "#navegacionPrincipal a"
+    );
+
+
+const seccionesConID =
+    $$(
+        "main section[id], footer[id]"
+    );
 
 
 const observerNav =
     new IntersectionObserver(
-        (entradas) => {
+        entradas => {
 
             entradas.forEach(
-                (entrada) => {
+                entrada => {
 
                     if (
-                        entrada.isIntersecting
-                    ) {
-
-                        const id =
-                            entrada.target.id;
+                        !entrada.isIntersecting
+                    )
+                        return;
 
 
-                        enlacesNav.forEach(
-                            (enlace) => {
-
-                                enlace.classList.remove(
-                                    "activo"
-                                );
+                    const id =
+                        entrada.target.id;
 
 
-                                if (
-                                    enlace.getAttribute(
-                                        "href"
-                                    ) === `#${id}`
-                                ) {
+                    enlacesNav.forEach(
+                        enlace => {
 
-                                    enlace.classList.add(
-                                        "activo"
-                                    );
+                            enlace.classList.toggle(
+                                "activo",
+                                enlace.getAttribute(
+                                    "href"
+                                ) === `#${id}`
+                            );
 
-                                }
-
-                            }
-                        );
-
-                    }
+                        }
+                    );
 
                 }
             );
 
         },
         {
-            threshold: 0.45
+            threshold:.35
         }
     );
 
 
-secciones.forEach(
-    (seccion) => {
+seccionesConID.forEach(
+    seccion => {
 
         observerNav.observe(
             seccion
@@ -611,25 +1968,22 @@ secciones.forEach(
 );
 
 
-/* =========================================================
-   12. BARRA DE PROGRESO DE LECTURA
-   ========================================================= */
+/* ============================================================
+   26. BARRA DE LECTURA
+   ============================================================ */
 
-function actualizarBarraLectura() {
+function actualizarLectura() {
 
-    if (!barraLectura) return;
-
-
-    const scrollActual =
-        window.scrollY;
+    if (!barraLectura)
+        return;
 
 
-    const alturaDocumento =
+    const altura =
         document.documentElement.scrollHeight -
         window.innerHeight;
 
 
-    if (alturaDocumento <= 0) {
+    if (altura <= 0) {
 
         barraLectura.style.width =
             "0%";
@@ -641,138 +1995,121 @@ function actualizarBarraLectura() {
 
     const porcentaje =
         (
-            scrollActual /
-            alturaDocumento
+            window.scrollY /
+            altura
         ) * 100;
 
 
     barraLectura.style.width =
-        `${porcentaje}%`;
+        `${Math.min(100,porcentaje)}%`;
 
 }
 
 
 window.addEventListener(
     "scroll",
-    actualizarBarraLectura
+    actualizarLectura,
+    {
+        passive:true
+    }
 );
 
 
-actualizarBarraLectura();
+actualizarLectura();
 
 
-/* =========================================================
-   13. BARRAS DE HABILIDADES
-   ========================================================= */
+/* ============================================================
+   27. ANIMACIÓN DE SKILLS
+   ============================================================ */
 
-const progressBars =
+const skills =
     $$("progress");
 
 
-function animarProgressBar(
-    barra
-) {
-
-    const valorFinal =
-        Number(barra.value);
-
-
-    /*
-       Guardamos el valor original.
-    */
-
-    barra.dataset.valorFinal =
-        valorFinal;
-
-
-    /*
-       Si el valor final es 0,
-       no necesitamos animarlo.
-    */
-
-    if (valorFinal === 0) {
-
-        barra.value = 0;
-
-        return;
-
-    }
-
-
-    barra.value = 0;
-
-
-    let valor = 0;
-
-
-    const intervalo =
-        setInterval(
-            () => {
-
-                valor += 1;
-
-
-                barra.value =
-                    valor;
-
-
-                if (
-                    valor >= valorFinal
-                ) {
-
-                    barra.value =
-                        valorFinal;
-
-
-                    clearInterval(
-                        intervalo
-                    );
-
-                }
-
-            },
-            20
-        );
-
-}
-
-
-const observerProgress =
+const observerSkills =
     new IntersectionObserver(
-        (entradas) => {
+        entradas => {
 
             entradas.forEach(
-                (entrada) => {
+                entrada => {
 
                     if (
-                        entrada.isIntersecting &&
-                        !entrada.target.dataset.animada
-                    ) {
-
-                        entrada.target.dataset.animada =
-                            "true";
+                        !entrada.isIntersecting
+                    )
+                        return;
 
 
-                        animarProgressBar(
-                            entrada.target
+                    const barra =
+                        entrada.target;
+
+
+                    if (
+                        barra.dataset.animada
+                    )
+                        return;
+
+
+                    barra.dataset.animada =
+                        "true";
+
+
+                    const final =
+                        Number(
+                            barra.getAttribute(
+                                "value"
+                            )
                         );
 
-                    }
+
+                    barra.value = 0;
+
+
+                    if (final === 0)
+                        return;
+
+
+                    let actual = 0;
+
+
+                    const intervalo =
+                        setInterval(
+                            () => {
+
+                                actual += 1;
+
+                                barra.value =
+                                    actual;
+
+
+                                if (
+                                    actual >=
+                                    final
+                                ) {
+
+                                    clearInterval(
+                                        intervalo
+                                    );
+
+                                }
+
+                            },
+                            18
+                        );
 
                 }
             );
 
         },
         {
-            threshold: 0.4
+            threshold:.5
         }
     );
 
 
-progressBars.forEach(
-    (barra) => {
+skills.forEach(
+    barra => {
 
-        observerProgress.observe(
+        observerSkills.observe(
             barra
         );
 
@@ -780,34 +2117,21 @@ progressBars.forEach(
 );
 
 
-/* =========================================================
-   14. DETAILS INTERACTIVOS
-   ========================================================= */
+/* ============================================================
+   28. DETAILS
+   ============================================================ */
 
-const detalles =
-    $$("details");
-
-
-detalles.forEach(
-    (detalle) => {
+$$("details").forEach(
+    detalle => {
 
         detalle.addEventListener(
             "toggle",
             () => {
 
-                if (detalle.open) {
-
-                    detalle.classList.add(
-                        "detalleAbierto"
-                    );
-
-                } else {
-
-                    detalle.classList.remove(
-                        "detalleAbierto"
-                    );
-
-                }
+                detalle.classList.toggle(
+                    "detalleAbierto",
+                    detalle.open
+                );
 
             }
         );
@@ -816,126 +2140,110 @@ detalles.forEach(
 );
 
 
-/* =========================================================
-   15. BUSCADOR DEL PORTFOLIO 🔎
-   ========================================================= */
+/* ============================================================
+   29. BUSCADOR
+   ============================================================ */
 
-function abrirBuscador() {
+function mostrarBuscador() {
 
-    if (!buscador) return;
+    if (!buscador)
+        return;
+
 
     buscador.classList.add(
         "mostrar"
     );
 
 
-    if (inputBusqueda) {
+    buscador.setAttribute(
+        "aria-hidden",
+        "false"
+    );
 
-        setTimeout(() => {
 
-            inputBusqueda.focus();
+    setTimeout(
+        () => {
 
-        }, 100);
+            campoBusqueda?.focus();
 
-    }
+        },
+        100
+    );
 
 }
 
 
-function cerrarBuscador() {
+function ocultarBuscador() {
 
-    if (!buscador) return;
+    if (!buscador)
+        return;
+
 
     buscador.classList.remove(
         "mostrar"
     );
 
-}
 
-
-if (btnBuscar) {
-
-    btnBuscar.addEventListener(
-        "click",
-        abrirBuscador
+    buscador.setAttribute(
+        "aria-hidden",
+        "true"
     );
 
 }
 
 
-if (cerrarBusqueda) {
-
-    cerrarBusqueda.addEventListener(
-        "click",
-        cerrarBuscador
-    );
-
-}
+abrirBuscador?.addEventListener(
+    "click",
+    mostrarBuscador
+);
 
 
-/*
-   Cerrar haciendo click
-   fuera del buscador.
-*/
+cerrarBuscador?.addEventListener(
+    "click",
+    ocultarBuscador
+);
 
-if (buscador) {
 
-    buscador.addEventListener(
-        "click",
-        (evento) => {
+buscador?.addEventListener(
+    "click",
+    evento => {
 
-            if (
-                evento.target === buscador
-            ) {
+        if (
+            evento.target === buscador
+        ) {
 
-                cerrarBuscador();
-
-            }
+            ocultarBuscador();
 
         }
+
+    }
+);
+
+
+/* ============================================================
+   30. BUSCAR EN EL PORTFOLIO
+   ============================================================ */
+
+const elementosBusqueda =
+    $$(
+        "main section, footer"
     );
 
-}
 
+if (campoBusqueda) {
 
-/* =========================================================
-   16. FILTRAR RESULTADOS DEL BUSCADOR
-   ========================================================= */
-
-const elementosBuscables =
-    $$("main section, footer");
-
-
-function escaparHTML(texto) {
-
-    const div =
-        document.createElement(
-            "div"
-        );
-
-    div.textContent =
-        texto;
-
-    return div.innerHTML;
-
-}
-
-
-if (inputBusqueda) {
-
-    inputBusqueda.addEventListener(
+    campoBusqueda.addEventListener(
         "input",
         () => {
 
             const texto =
-                inputBusqueda.value
+                campoBusqueda.value
                     .trim()
                     .toLowerCase();
 
 
-            if (!resultadosBusqueda) {
+            if (!resultadosBusqueda)
                 return;
-            }
 
 
             resultadosBusqueda.innerHTML =
@@ -945,7 +2253,7 @@ if (inputBusqueda) {
             if (!texto) {
 
                 resultadosBusqueda.innerHTML =
-                    "<p>Escribí algo para buscar 🌻</p>";
+                    "<p>🌻 Escribí algo para buscar.</p>";
 
                 return;
 
@@ -955,8 +2263,8 @@ if (inputBusqueda) {
             let encontrados = 0;
 
 
-            elementosBuscables.forEach(
-                (elemento) => {
+            elementosBusqueda.forEach(
+                elemento => {
 
                     const contenido =
                         elemento.textContent
@@ -964,7 +2272,9 @@ if (inputBusqueda) {
 
 
                     if (
-                        contenido.includes(texto)
+                        contenido.includes(
+                            texto
+                        )
                     ) {
 
                         encontrados++;
@@ -972,14 +2282,8 @@ if (inputBusqueda) {
 
                         const titulo =
                             elemento.querySelector(
-                                "h1, h2, h3, summary"
+                                "h1,h2,h3,summary"
                             );
-
-
-                        const nombre =
-                            titulo
-                                ? titulo.textContent.trim()
-                                : "Sección";
 
 
                         const resultado =
@@ -993,7 +2297,9 @@ if (inputBusqueda) {
 
 
                         resultado.textContent =
-                            nombre;
+                            titulo
+                                ? titulo.textContent.trim()
+                                : "Sección";
 
 
                         resultado.addEventListener(
@@ -1001,12 +2307,12 @@ if (inputBusqueda) {
                             () => {
 
                                 elemento.scrollIntoView({
-                                    behavior: "smooth",
-                                    block: "start"
+                                    behavior:"smooth",
+                                    block:"start"
                                 });
 
 
-                                cerrarBuscador();
+                                ocultarBuscador();
 
                             }
                         );
@@ -1022,10 +2328,12 @@ if (inputBusqueda) {
             );
 
 
-            if (encontrados === 0) {
+            if (
+                encontrados === 0
+            ) {
 
                 resultadosBusqueda.innerHTML =
-                    `<p>No encontré resultados para "${escaparHTML(texto)}" 🦋</p>`;
+                    `<p>🌱 No encontré "${texto}".</p>`;
 
             }
 
@@ -1035,43 +2343,42 @@ if (inputBusqueda) {
 }
 
 
-/* =========================================================
-   17. COPIAR EMAIL
-   ========================================================= */
+/* ============================================================
+   31. COPIAR EMAIL
+   ============================================================ */
 
-const botonesCopiar =
-    $$(".copiarEmail");
-
-
-botonesCopiar.forEach(
-    (boton) => {
+$$(
+    ".miniBtn[data-copiar]"
+).forEach(
+    boton => {
 
         boton.addEventListener(
             "click",
             async () => {
 
-                const email =
-                    boton.dataset.email;
+                const texto =
+                    boton.dataset.copiar;
 
 
-                if (!email) return;
+                if (!texto)
+                    return;
 
 
                 try {
 
                     await navigator.clipboard.writeText(
-                        email
+                        texto
                     );
 
 
                     mostrarToast(
-                        "📧 Email copiado"
+                        "📋 Email copiado"
                     );
 
-                } catch (error) {
+                } catch {
 
                     mostrarToast(
-                        "No se pudo copiar el email"
+                        "No se pudo copiar"
                     );
 
                 }
@@ -1083,36 +2390,41 @@ botonesCopiar.forEach(
 );
 
 
-/* =========================================================
-   18. MODO PRESENTACIÓN
-   ========================================================= */
+/* ============================================================
+   32. MODO PRESENTACIÓN
+   ============================================================ */
 
-if (btnPresentacion) {
+if (modoPresentacion) {
 
-    btnPresentacion.addEventListener(
+    modoPresentacion.addEventListener(
         "click",
         () => {
 
+            presentacion =
+                !presentacion;
+
+
             body.classList.toggle(
-                "presentacion"
+                "presentacion",
+                presentacion
             );
 
 
-            const activo =
-                body.classList.contains(
-                    "presentacion"
-                );
+            modoPresentacion.textContent =
+                presentacion
+                    ? "❌"
+                    : "🎬";
 
 
-            btnPresentacion.textContent =
-                activo
-                    ? "❌ Salir de presentación"
-                    : "🎬 Presentación";
+            modoPresentacion.title =
+                presentacion
+                    ? "Salir de presentación"
+                    : "Modo presentación";
 
 
             mostrarToast(
-                activo
-                    ? "🎬 Modo presentación activado"
+                presentacion
+                    ? "🎬 Modo presentación"
                     : "🌻 Modo normal"
             );
 
@@ -1122,84 +2434,75 @@ if (btnPresentacion) {
 }
 
 
-/* =========================================================
-   19. MODO ACCESIBILIDAD
-   ========================================================= */
-
-let accesibilidad =
-    localStorage.getItem(
-        "accesibilidadPortfolio"
-    ) === "true";
-
+/* ============================================================
+   33. MODO ACCESIBILIDAD
+   ============================================================ */
 
 function aplicarAccesibilidad() {
 
     body.classList.toggle(
         "accesible",
-        accesibilidad
+        accesible
     );
 
 
-    if (btnAccesibilidad) {
+    if (modoAccesible) {
 
-        btnAccesibilidad.textContent =
-            accesibilidad
-                ? "♿ Accesibilidad ON"
-                : "♿ Accesibilidad";
+        modoAccesible.textContent =
+            accesible
+                ? "♿✓"
+                : "♿";
 
     }
 
 
     localStorage.setItem(
-        "accesibilidadPortfolio",
-        accesibilidad
+        "portfolioAccesible",
+        accesible
     );
 
 }
 
 
-if (btnAccesibilidad) {
+modoAccesible?.addEventListener(
+    "click",
+    () => {
 
-    btnAccesibilidad.addEventListener(
-        "click",
-        () => {
-
-            accesibilidad =
-                !accesibilidad;
+        accesible =
+            !accesible;
 
 
-            aplicarAccesibilidad();
+        aplicarAccesibilidad();
 
 
-            mostrarToast(
-                accesibilidad
-                    ? "♿ Accesibilidad activada"
-                    : "🌻 Accesibilidad desactivada"
-            );
+        mostrarToast(
+            accesible
+                ? "♿ Movimiento reducido"
+                : "🌻 Movimiento normal"
+        );
 
-        }
-    );
-
-}
+    }
+);
 
 
 aplicarAccesibilidad();
 
 
-/* =========================================================
-   20. CYBER LAB 🔐
-   ========================================================= */
+/* ============================================================
+   34. CYBER LAB
+   ============================================================ */
 
 const passwordInput =
     $("#passwordInput");
 
+const passwordBar =
+    $("#passwordBar");
 
 const passwordResultado =
     $("#passwordResultado");
 
-
-const passwordBar =
-    $("#passwordBar");
+const passwordChecks =
+    $("#passwordChecks");
 
 
 if (passwordInput) {
@@ -1212,114 +2515,160 @@ if (passwordInput) {
                 passwordInput.value;
 
 
-            let fuerza = 0;
+            let puntos = 0;
 
 
-            /*
-               Longitud
-            */
+            const comprobaciones = [];
+
 
             if (
                 password.length >= 8
             ) {
 
-                fuerza += 25;
+                puntos += 25;
+
+                comprobaciones.push(
+                    "✓ 8 o más caracteres"
+                );
+
+            } else {
+
+                comprobaciones.push(
+                    "○ 8 o más caracteres"
+                );
 
             }
 
-
-            /*
-               Mayúsculas
-            */
 
             if (
                 /[A-Z]/.test(password)
             ) {
 
-                fuerza += 20;
+                puntos += 20;
+
+                comprobaciones.push(
+                    "✓ Mayúsculas"
+                );
+
+            } else {
+
+                comprobaciones.push(
+                    "○ Mayúsculas"
+                );
 
             }
 
-
-            /*
-               Minúsculas
-            */
 
             if (
                 /[a-z]/.test(password)
             ) {
 
-                fuerza += 20;
+                puntos += 20;
+
+                comprobaciones.push(
+                    "✓ Minúsculas"
+                );
+
+            } else {
+
+                comprobaciones.push(
+                    "○ Minúsculas"
+                );
 
             }
 
-
-            /*
-               Números
-            */
 
             if (
                 /[0-9]/.test(password)
             ) {
 
-                fuerza += 20;
+                puntos += 20;
+
+                comprobaciones.push(
+                    "✓ Números"
+                );
+
+            } else {
+
+                comprobaciones.push(
+                    "○ Números"
+                );
 
             }
 
-
-            /*
-               Símbolos
-            */
 
             if (
                 /[^A-Za-z0-9]/.test(password)
             ) {
 
-                fuerza += 15;
+                puntos += 15;
 
-            }
+                comprobaciones.push(
+                    "✓ Símbolos"
+                );
 
+            } else {
 
-            if (password.length === 0) {
-
-                fuerza = 0;
+                comprobaciones.push(
+                    "○ Símbolos"
+                );
 
             }
 
 
             if (passwordBar) {
 
-                passwordBar.value =
-                    fuerza;
-
                 passwordBar.style.width =
-                    `${fuerza}%`;
+                    `${puntos}%`;
+
+            }
+
+
+            if (passwordChecks) {
+
+                passwordChecks.innerHTML =
+                    comprobaciones
+                        .map(
+                            texto =>
+                                `<span class="passwordCheck">${texto}</span>`
+                        )
+                        .join("");
 
             }
 
 
             if (passwordResultado) {
 
-                if (fuerza < 30) {
+                if (!password) {
+
+                    passwordResultado.textContent =
+                        "Esperando análisis...";
+
+                } else if (puntos < 40) {
 
                     passwordResultado.textContent =
                         "🔴 Muy débil";
 
-                } else if (fuerza < 60) {
+                } else if (puntos < 60) {
 
                     passwordResultado.textContent =
                         "🟠 Débil";
 
-                } else if (fuerza < 80) {
+                } else if (puntos < 80) {
 
                     passwordResultado.textContent =
-                        "🟡 Buena";
+                        "🟡 Moderada";
 
-                } else {
+                } else if (puntos < 100) {
 
                     passwordResultado.textContent =
                         "🟢 Fuerte";
 
+                } else {
+
+                    passwordResultado.textContent =
+                        "💚 Muy fuerte";
+
                 }
 
             }
@@ -1330,271 +2679,52 @@ if (passwordInput) {
 }
 
 
-/* =========================================================
-   21. LABORATORIO DE EXPERIMENTOS 🧪
-   ========================================================= */
+/* ============================================================
+   35. LABORATORIO
+   ============================================================ */
 
-const botonesExperimento =
-    $$(".experimento");
-
-
-botonesExperimento.forEach(
-    (boton) => {
+$$(".experimentoBtn").forEach(
+    (boton, indice) => {
 
         boton.addEventListener(
             "click",
             () => {
 
-                const experimento =
-                    boton.dataset.experimento;
-
-
-                switch (experimento) {
-
-                    case "particles":
-
-                        mostrarToast(
-                            "✨ Las partículas están vivas"
+                const resultado =
+                    boton.parentElement
+                        ?.querySelector(
+                            ".resultadoExperimento"
                         );
 
-                        body.classList.toggle(
-                            "particulasLocas"
-                        );
 
-                        break;
+                const mensajes = [
 
+                    "🌐 HTML detectado. El DOM está funcionando.",
 
-                    case "matrix":
+                    "🎨 CSS activado. Animaciones y estilos responden.",
 
-                        mostrarToast(
-                            "💻 Experimento Matrix iniciado"
-                        );
+                    "⚡ JavaScript ejecutado. Evento detectado correctamente."
 
-                        body.classList.toggle(
-                            "matrixMode"
-                        );
+                ];
 
-                        break;
 
+                if (resultado) {
 
-                    case "nature":
+                    resultado.textContent =
+                        mensajes[indice] ||
+                        "🧪 Experimento ejecutado.";
 
-                        mostrarToast(
-                            "🌿 La naturaleza responde"
-                        );
 
-                        body.classList.toggle(
-                            "natureMode"
-                        );
-
-                        break;
-
-
-                    default:
-
-                        mostrarToast(
-                            "🧪 Experimento activado"
-                        );
-
-                }
-
-            }
-        );
-
-    }
-);
-
-
-/* =========================================================
-   22. ESTADO DEL SISTEMA
-   ========================================================= */
-
-const estadoSistema =
-    $("#estadoSistema");
-
-
-const horaSistema =
-    $("#horaSistema");
-
-
-const resolucionSistema =
-    $("#resolucionSistema");
-
-
-function actualizarSistema() {
-
-    if (estadoSistema) {
-
-        estadoSistema.textContent =
-            "🟢 Online";
-
-    }
-
-
-    if (horaSistema) {
-
-        const ahora =
-            new Date();
-
-
-        horaSistema.textContent =
-            ahora.toLocaleTimeString(
-                "es-AR",
-                {
-                    hour: "2-digit",
-                    minute: "2-digit"
-                }
-            );
-
-    }
-
-
-    if (resolucionSistema) {
-
-        resolucionSistema.textContent =
-            `${window.innerWidth} × ${window.innerHeight}`;
-
-    }
-
-}
-
-
-actualizarSistema();
-
-
-setInterval(
-    actualizarSistema,
-    1000
-);
-
-
-window.addEventListener(
-    "resize",
-    actualizarSistema
-);
-
-
-/* =========================================================
-   23. CAMBIO DE IDIOMA
-   ========================================================= */
-
-let idioma =
-    localStorage.getItem(
-        "idiomaPortfolio"
-    ) || "es";
-
-
-function actualizarIdiomaBoton() {
-
-    if (!idiomaBtn) return;
-
-
-    if (idioma === "es") {
-
-        idiomaBtn.textContent =
-            "🇬🇧 English";
-
-    } else {
-
-        idiomaBtn.textContent =
-            "🇪🇸 Español";
-
-    }
-
-}
-
-
-/*
-   Este sistema busca elementos que tengan:
-
-   data-es="texto en español"
-   data-en="text in English"
-
-   y cambia su contenido.
-*/
-
-function cambiarIdioma() {
-
-    idioma =
-        idioma === "es"
-            ? "en"
-            : "es";
-
-
-    const elementosIdioma =
-        $$("[data-es][data-en]");
-
-
-    elementosIdioma.forEach(
-        (elemento) => {
-
-            elemento.textContent =
-                idioma === "es"
-                    ? elemento.dataset.es
-                    : elemento.dataset.en;
-
-        }
-    );
-
-
-    localStorage.setItem(
-        "idiomaPortfolio",
-        idioma
-    );
-
-
-    actualizarIdiomaBoton();
-
-
-    mostrarToast(
-        idioma === "es"
-            ? "🇪🇸 Español"
-            : "🇬🇧 English"
-    );
-
-}
-
-
-if (idiomaBtn) {
-
-    idiomaBtn.addEventListener(
-        "click",
-        cambiarIdioma
-    );
-
-}
-
-
-actualizarIdiomaBoton();
-
-
-/* =========================================================
-   24. BOTONES CON EFECTO DE CLICK
-   ========================================================= */
-
-const botones =
-    $$("button");
-
-
-botones.forEach(
-    (boton) => {
-
-        boton.addEventListener(
-            "click",
-            () => {
-
-                boton.classList.add(
-                    "botonPulsado"
-                );
-
-
-                setTimeout(() => {
-
-                    boton.classList.remove(
-                        "botonPulsado"
+                    resultado.classList.add(
+                        "resultadoActivo"
                     );
 
-                }, 300);
+                }
+
+
+                mostrarToast(
+                    "🧪 Experimento ejecutado"
+                );
 
             }
         );
@@ -1603,103 +2733,137 @@ botones.forEach(
 );
 
 
-/* =========================================================
-   25. EASTER EGG 😼
-   ========================================================= */
+/* ============================================================
+   36. ESTADO DEL SISTEMA
+   ============================================================ */
 
-let codigoSecreto =
-    "";
+const jsEstado =
+    $("#jsEstado");
 
+
+if (jsEstado) {
+
+    jsEstado.textContent =
+        "ONLINE ✓";
+
+}
+
+
+/* ============================================================
+   37. IDIOMA
+   ============================================================ */
+
+function actualizarIdioma() {
+
+    if (!idiomaBtn)
+        return;
+
+
+    idiomaBtn.textContent =
+        idioma === "es"
+            ? "🇬🇧 English"
+            : "🇪🇸 Español";
+
+}
+
+
+idiomaBtn?.addEventListener(
+    "click",
+    () => {
+
+        idioma =
+            idioma === "es"
+                ? "en"
+                : "es";
+
+
+        localStorage.setItem(
+            "portfolioIdioma",
+            idioma
+        );
+
+
+        actualizarIdioma();
+
+
+        /*
+           Por ahora cambia el estado del idioma.
+           El contenido principal sigue en español.
+           No destruimos el HTML usando textContent.
+        */
+
+        mostrarToast(
+            idioma === "en"
+                ? "🇬🇧 English mode"
+                : "🇪🇸 Modo español"
+        );
+
+    }
+);
+
+
+actualizarIdioma();
+
+
+/* ============================================================
+   38. ATAJOS DE TECLADO
+   ============================================================ */
 
 document.addEventListener(
     "keydown",
-    (evento) => {
+    evento => {
 
-        codigoSecreto +=
+        const elemento =
+            document.activeElement;
+
+
+        const escribiendo =
+            elemento &&
+            (
+                elemento.tagName === "INPUT" ||
+                elemento.tagName === "TEXTAREA"
+            );
+
+
+        if (
+            evento.key === "Escape"
+        ) {
+
+            ocultarBuscador();
+
+            return;
+
+        }
+
+
+        if (escribiendo)
+            return;
+
+
+        const tecla =
             evento.key.toLowerCase();
 
 
         /*
-           Solo guardamos los últimos
-           20 caracteres.
+           /
+           Buscador
         */
 
-        if (
-            codigoSecreto.length > 20
-        ) {
+        if (tecla === "/") {
 
-            codigoSecreto =
-                codigoSecreto.slice(-20);
+            evento.preventDefault();
+
+            mostrarBuscador();
 
         }
 
 
-        if (
-            codigoSecreto.includes(
-                "valchu"
-            )
-        ) {
-
-            if (easterEgg) {
-
-                easterEgg.classList.add(
-                    "mostrar"
-                );
-
-
-                setTimeout(() => {
-
-                    easterEgg.classList.remove(
-                        "mostrar"
-                    );
-
-                }, 4000);
-
-            }
-
-
-            mostrarToast(
-                "😼 Encontraste el secreto"
-            );
-
-
-            codigoSecreto = "";
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   26. ATAJOS DE TECLADO
-   ========================================================= */
-
-document.addEventListener(
-    "keydown",
-    (evento) => {
-
         /*
-           No ejecutar atajos mientras
-           se escribe en un input.
+           D
+           Jardín de día
         */
 
-        const escribiendo =
-            evento.target.matches(
-                "input, textarea"
-            );
-
-
-        if (escribiendo) return;
-
-
-        /*
-           D = día / jardín
-        */
-
-        if (
-            evento.key.toLowerCase() === "d"
-        ) {
+        if (tecla === "d") {
 
             aplicarMomento(
                 "jardin"
@@ -1709,12 +2873,11 @@ document.addEventListener(
 
 
         /*
-           N = noche
+           N
+           Noche
         */
 
-        if (
-            evento.key.toLowerCase() === "n"
-        ) {
+        if (tecla === "n") {
 
             aplicarMomento(
                 "noche"
@@ -1724,63 +2887,25 @@ document.addEventListener(
 
 
         /*
-           P = presentación
+           P
+           Presentación
         */
 
-        if (
-            evento.key.toLowerCase() === "p"
-        ) {
+        if (tecla === "p") {
 
-            if (btnPresentacion) {
-
-                btnPresentacion.click();
-
-            }
+            modoPresentacion?.click();
 
         }
 
 
         /*
-           A = accesibilidad
+           A
+           Accesibilidad
         */
 
-        if (
-            evento.key.toLowerCase() === "a"
-        ) {
+        if (tecla === "a") {
 
-            if (btnAccesibilidad) {
-
-                btnAccesibilidad.click();
-
-            }
-
-        }
-
-
-        /*
-           / = buscador
-        */
-
-        if (
-            evento.key === "/"
-        ) {
-
-            evento.preventDefault();
-
-            abrirBuscador();
-
-        }
-
-
-        /*
-           ESC = cerrar buscador
-        */
-
-        if (
-            evento.key === "Escape"
-        ) {
-
-            cerrarBuscador();
+            modoAccesible?.click();
 
         }
 
@@ -1788,12 +2913,9 @@ document.addEventListener(
 );
 
 
-/* =========================================================
-   27. PARALLAX CON SCROLL
-   ========================================================= */
-
-let scrollActual = 0;
-
+/* ============================================================
+   39. PARALLAX CON SCROLL
+   ============================================================ */
 
 window.addEventListener(
     "scroll",
@@ -1806,7 +2928,7 @@ window.addEventListener(
         if (sol) {
 
             sol.style.marginTop =
-                `${scrollActual * 0.05}px`;
+                `${scrollActual * .035}px`;
 
         }
 
@@ -1814,15 +2936,83 @@ window.addEventListener(
         if (luna) {
 
             luna.style.marginTop =
-                `${scrollActual * 0.02}px`;
+                `${scrollActual * .015}px`;
 
         }
 
 
-        if (estrellas) {
+        if (rayos) {
 
-            estrellas.style.marginTop =
-                `${scrollActual * 0.01}px`;
+            rayos.style.transform =
+                `rotate(${scrollActual * .03}deg)`;
+
+        }
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+/* ============================================================
+   40. EASTER EGG
+   ============================================================ */
+
+let codigoSecreto = "";
+
+
+document.addEventListener(
+    "keydown",
+    evento => {
+
+        codigoSecreto +=
+            evento.key.toLowerCase();
+
+
+        if (
+            codigoSecreto.length > 30
+        ) {
+
+            codigoSecreto =
+                codigoSecreto.slice(-30);
+
+        }
+
+
+        if (
+            codigoSecreto.includes(
+                "valchu"
+            )
+        ) {
+
+            codigoSecreto = "";
+
+
+            if (easterEgg) {
+
+                easterEgg.classList.add(
+                    "mostrar"
+                );
+
+
+                setTimeout(
+                    () => {
+
+                        easterEgg.classList.remove(
+                            "mostrar"
+                        );
+
+                    },
+                    4500
+                );
+
+            }
+
+
+            mostrarToast(
+                "😼 Encontraste el jardín secreto"
+            );
 
         }
 
@@ -1830,33 +3020,109 @@ window.addEventListener(
 );
 
 
-/* =========================================================
-   28. INICIALIZACIÓN
-   ========================================================= */
+/* ============================================================
+   41. BOTONES: PEQUEÑO EFECTO DE PRESIÓN
+   ============================================================ */
+
+$$("button").forEach(
+    boton => {
+
+        boton.addEventListener(
+            "pointerdown",
+            () => {
+
+                boton.style.transform =
+                    "scale(.94)";
+
+            }
+        );
+
+
+        boton.addEventListener(
+            "pointerup",
+            () => {
+
+                boton.style.transform =
+                    "";
+
+            }
+        );
+
+
+        boton.addEventListener(
+            "pointerleave",
+            () => {
+
+                boton.style.transform =
+                    "";
+
+            }
+        );
+
+    }
+);
+
+
+/* ============================================================
+   42. DETECTAR CAMBIO DE TAMAÑO
+   ============================================================ */
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        /*
+           No regeneramos todo el jardín,
+           solamente adaptamos algunas cantidades
+           mediante las reglas CSS.
+        */
+
+        document.documentElement.style
+            .setProperty(
+                "--anchoVentana",
+                `${window.innerWidth}px`
+            );
+
+    }
+);
+
+
+/* ============================================================
+   43. INICIALIZACIÓN FINAL
+   ============================================================ */
 
 aplicarMomento(
-    momentoActual
+    momento
 );
 
 
-actualizarIdiomaBoton();
+actualizarIdioma();
 
 
 console.log(
-    "🌻 Portfolio iniciado correctamente."
+    "🌻 Jardín interactivo iniciado."
 );
-
 
 console.log(
-    "💻 JavaScript funcionando."
+    "🦋 Mariposas activadas."
 );
-
 
 console.log(
-    "🦋 El jardín está vivo."
+    "🍃 Hojas activadas."
 );
 
+console.log(
+    "☁️ Nubes activadas."
+);
 
-/* =========================================================
-   FIN DEL SCRIPT
-   ========================================================= */
+console.log(
+    "🌫️ Niebla activada."
+);
+
+console.log(
+    "✨ Partículas activadas."
+);
+
+console.log(
+    "💻 JavaScript ONLINE."
+);
