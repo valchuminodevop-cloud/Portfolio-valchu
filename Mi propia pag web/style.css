@@ -3903,3 +3903,71 @@ button:focus-visible {
 section {
     scroll-margin-top: 90px;
 }
+/* Preview de repositorios de GitHub */
+.project-preview.has-image {
+  aspect-ratio: 2 / 1;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.project-preview.has-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.project-preview.has-image .project-number {
+  position: absolute;
+  z-index: 2;
+}
+/* Fondo de respaldo si la imagen de GitHub no carga */
+.project-preview.has-image {
+  background: linear-gradient(
+    135deg,
+    rgba(124, 92, 255, 0.35),
+    rgba(0, 200, 255, 0.25)
+  );
+}
+
+/* Etiquetas de tecnologías sobre la preview */
+.preview-tech {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 2.4rem 0.8rem 0.7rem;
+  background: linear-gradient(
+    to top,
+    rgba(8, 11, 28, 0.92),
+    rgba(8, 11, 28, 0)
+  );
+  pointer-events: none;
+}
+
+.preview-tech span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(8, 11, 28, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+}
+
+.preview-tech i {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--dot, #8b9bff);
+}
