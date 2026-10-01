@@ -2,272 +2,1515 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio de Florencia Valentina Miño: programación, ciberseguridad, experiencia y proyectos.">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#080b1c">
+
+    <meta name="description"
+          content="Portfolio de Valentina Mino — Junior Web Developer, IT y Cybersecurity. Proyectos, conocimientos y evolución profesional.">
+
+    <meta name="author"
+          content="Valentina Mino">
+
+    <meta property="og:title"
+          content="Valentina Mino | Junior Web Developer & IT">
+
+    <meta property="og:description"
+          content="Portfolio profesional de Valentina Mino. Desarrollo web, IT, Python y aprendizaje en ciberseguridad.">
+
+    <meta property="og:type"
+          content="website">
+
+    <meta property="og:image"
+          content="valchu.jpg">
+
+    <title>Valentina Mino | Junior Web Developer & IT</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
-    <title>Florencia Valentina Miño | Programación y Ciberseguridad</title>
 </head>
+
 <body>
 
-<div id="barraLectura"></div>
+    <!-- =====================================================
+         CURSOR
+    ====================================================== -->
 
-<div id="herramientas" aria-label="Herramientas del portfolio">
-    <button id="modoPresentacion" title="Modo presentación" aria-label="Modo presentación">🎬</button>
-    <button id="modoAccesible" title="Modo accesibilidad" aria-label="Modo accesibilidad">♿</button>
-    <button id="abrirBuscador" title="Buscar" aria-label="Abrir buscador">🔎</button>
-</div>
+    <div class="cursor-glow" aria-hidden="true"></div>
+    <div class="cursor-dot" aria-hidden="true"></div>
 
-<div id="buscador" aria-hidden="true">
-    <div class="buscadorCaja">
-        <button id="cerrarBuscador" class="cerrar" aria-label="Cerrar buscador">✕</button>
-        <h2>🔎 Buscar en mi portfolio</h2>
-        <input type="search" id="campoBusqueda" placeholder="Buscar experiencia, HTML, JavaScript..." autocomplete="off">
-        <div id="resultadosBusqueda"></div>
-    </div>
-</div>
 
-<div id="ambiente" aria-hidden="true">
-    <div id="sol">☀️</div>
-    <div id="rayos">☀️ ☀️ ☀️</div>
-    <div id="luna">🌙</div>
-    <div id="estrellas">✦　⭐　✧　✨　⭐　✦　⋆　✨</div>
-    <div id="mariposas">🦋　🦋　🦋　🦋</div>
-    <div id="hojas">🍃　🍂　🍃　🍃　🍂　🍃</div>
-    <div id="niebla">☁️　☁️　☁️</div>
-    <div id="luciernagas">✨　·　✨　·　✨　·　✨</div>
-</div>
+    <!-- =====================================================
+         BACKGROUND
+    ====================================================== -->
 
-<button id="idiomaBtn" aria-label="Cambiar idioma">🇬🇧 English</button>
+    <div class="world" aria-hidden="true">
 
-<header id="inicio">
-    <img src="valchu.jpg" alt="Valentina Miño" width="180">
-    <p class="eyebrow">PORTFOLIO PERSONAL</p>
-    <h1>Florencia Valentina Miño</h1>
-    <p class="subtitulo">Programación | Ciberseguridad</p>
-    <p class="fraseJardin">🌻 Un portfolio en construcción, como un jardín.</p>
+        <div class="sky-gradient"></div>
 
-    <div class="controlesPrincipales">
-        <button id="modoCampo">🌞 Cambiar momento del día</button>
-        <button id="modoLocura">🦋 Activar jardín loco</button>
-    </div>
+        <div class="stars stars-one"></div>
+        <div class="stars stars-two"></div>
+        <div class="stars stars-three"></div>
 
-    <div id="selectorAmbiente" aria-label="Cambiar ambiente">
-        <button data-ambiente="jardin" title="Jardín">🌿</button>
-        <button data-ambiente="atardecer" title="Atardecer">🌅</button>
-        <button data-ambiente="noche" title="Noche">🌙</button>
-        <button data-ambiente="cyber" title="Cyber">💻</button>
-    </div>
-
-    <nav id="navegacionPrincipal" aria-label="Navegación principal">
-        <ul>
-            <li><a href="#sobre-mi">Sobre mí</a></li>
-            <li><a href="#experience">Experiencia</a></li>
-            <li><a href="#mis-estudios">Estudios</a></li>
-            <li><a href="#habilidades">Habilidades</a></li>
-            <li><a href="#laboratorio">Laboratorio</a></li>
-            <li><a href="#cyberLab">Cyber Lab</a></li>
-            <li><a href="#salario">Expectativa</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
-    </nav>
-</header>
-
-<main>
-
-<section id="jardinNav" class="seccionEspecial">
-    <span class="etiqueta">NAVEGACIÓN INTERACTIVA</span>
-    <h2>🌿 Explorá </h2>
-    <p>Cada elemento representa una parte de mi recorrido.</p>
-    <div class="jardinElementos">
-        <button data-ir="#sobre-mi"><span class="emojiGrande">🌻</span><span>Sobre mí</span></button>
-        <button data-ir="#experience"><span class="emojiGrande">🌳</span><span>Experiencia</span></button>
-        <button data-ir="#mis-estudios"><span class="emojiGrande">📖</span><span>Estudios</span></button>
-        <button data-ir="#habilidades"><span class="emojiGrande">🦋</span><span>Habilidades</span></button>
-        <button data-ir="#laboratorio"><span class="emojiGrande">🧪</span><span>Laboratorio</span></button>
-        <button data-ir="#contacto"><span class="emojiGrande">🌙</span><span>Contacto</span></button>
-    </div>
-</section>
-
-<section id="sobre-mi">
-    <span class="etiqueta">01 · PERFIL</span>
-    <h2>Sobre mí</h2>
-    <details>
-        <summary><strong>🌻 Conoceme</strong></summary>
-        <p>Soy estudiante de programación y ciberseguridad, con experiencia en atención al cliente, soporte y resolución de problemas. Actualmente busco desarrollarme profesionalmente en el área tecnológica. </p>
-    </details>
-    <details>
-        <summary><strong>🌱 Disponibilidad</strong></summary>
-        <p>Estoy en búsqueda activa de trabajo relacionado a la <b>programación</b> actualmente.</p>
-    </details>
-</section>
-
-<section id="experience">
-    <span class="etiqueta">02 · EXPERIENCIA</span>
-    <h2>Experiencia Laboral</h2>
-    <details>
-        <summary><b>💳 FISERV - ATENTO</b></summary>
-        <p>Ayudo a los comercios usuarios de terminales <a href="https://www.fiserv.com.ar/" target="_blank" rel="noopener">FISERV</a> a modificar los datos de su terminal, arreglar problemas que surgen en su operatoria, autorizo o ayudo a anular ventas de ser necesario, coordino el envío de insumos o servicio técnico.</p>
-        <p><i>Octubre 2023 - Actualmente</i></p>
-    </details>
-    <details>
-        <summary><b>🧾 Cotizador para Courtage - EficaSia</b></summary>
-        <p>Ayudaba a los compradores de la página web de <a href="https://institucional.ike.ar/" target="_blank" rel="noopener">IKE Argentina</a> a terminar con sus ventas cuando tenían problemas. Anteriormente había vendido intangibles dentro de la empresa para Santander Río, Macro, Zurich y Courtage.</p>
-        <p><i>Agosto 2019 - Julio 2023</i></p>
-    </details>
-</section>
-
-<section id="mis-estudios">
-    <span class="etiqueta">03 · FORMACIÓN</span>
-    <h2>Mis estudios</h2>
-    <details>
-        <summary><b>🔐 TryHackMe.com - Ciberseguridad</b></summary>
-        <p><strong>Terciario</strong><br><i>Septiembre 2026 - Actualmente</i></p>
-    </details>
-    <details>
-        <summary><b>💻 CFP Luz y Fuerza N°27 - Programación</b></summary>
-        <p><strong>Terciario</strong><br><i>Junio 2026 - Actualmente</i></p>
-    </details>
-    <details>
-        <summary><b>🏥 Icdp - Administración de clínicas</b></summary>
-        <p><strong>Terciario</strong><br><i>Febrero 2026 - Septiembre 2026</i></p>
-    </details>
-    <details>
-        <summary><b>🩸 Eddis - Auxiliar hemoterapia</b></summary>
-        <p><strong>Terciario</strong><br><i>Julio 2024 - Enero 2026</i></p>
-    </details>
-</section>
-
-<section id="habilidades">
-    <span class="etiqueta">04 · SKILLS</span>
-    <h2>Habilidades</h2>
-    <details>
-        <summary><strong>🤝 Habilidades interpersonales</strong></summary>
-        <ul class="listaHabilidades">
-            <li>Adaptabilidad</li><li>Manejo del estrés</li><li>Customer service</li><li>Problem solving</li><li>Teamwork</li><li>Communication</li><li>Time management</li>
-        </ul>
-    </details>
-    <details>
-        <summary><strong>💻 Actualmente aprendiendo</strong></summary>
-        <div id="conocimientos">
-            <h3>Conocimientos técnicos</h3>
-            <div class="skill"><label for="html">HTML5</label><progress id="html" value="50" max="100"></progress><span>50%</span></div>
-            <div class="skill"><label for="css">CSS</label><progress id="css" value="5" max="100"></progress><span>5%</span></div>
-            <div class="skill"><label for="javascript">JavaScript</label><progress id="javascript" value="5" max="100"></progress><span>5%</span></div>
-            <div class="skill"><label for="mysql">MySQL</label><progress id="mysql" value="0" max="100"></progress><span>0%</span></div>
-            <div class="skill"><label for="react">React</label><progress id="react" value="0" max="100"></progress><span>0%</span></div>
-            <div class="skill"><label for="Microsoft-Excel">Microsoft Excel</label><progress id="Microsoft-Excel" value="50" max="100"></progress><span>50%</span></div>
-            <div class="skill"><label for="Salesforce">Salesforce</label><progress id="Salesforce" value="80" max="100"></progress><span>80%</span></div>
-            <div class="skill"><label for="Power-BI">Power BI</label><progress id="Power-BI" value="30" max="100"></progress><span>30%</span></div>
-            <div class="skill"><label for="Microsoft-Office">Microsoft Office</label><progress id="Microsoft-Office" value="90" max="100"></progress><span>90%</span></div>
-            <div class="skill"><label for="ciberseguridad">Ciberseguridad</label><progress id="ciberseguridad" value="10" max="100"></progress><span>10%</span></div>
+        <div class="moon">
+            <div class="moon-glow"></div>
         </div>
-    </details>
-    <details>
-        <summary><strong>🌎 Idiomas</strong></summary>
-        <p><b>Español - <i>Nativo</i></b><br><b>Inglés - <i>Intermedio</i></b> <a href="https://cert.efset.org/es/XMTznH" target="_blank" rel="noopener">Certificada en Inglés C1 por EFSET internacional.</a></p>
-    </details>
-    <details>
-        <summary><strong>🚀 Portfolio</strong></summary>
-        <ul>
-            <li><a href="https://valchu-proyecto-10.netlify.app/" target="_blank" rel="noopener">Página Web sobre Skinwalkers</a></li>
-            <li><a href="https://valchu-proyecto-11.netlify.app/" target="_blank" rel="noopener">Blog dedicado a Robin Greenfield</a></li>
-        </ul>
-    </details>
-</section>
 
-<section id="laboratorio">
-    <span class="etiqueta">05 · EXPERIMENTOS</span>
-    <h2>🧪 Laboratorio</h2>
-    <p>Este espacio muestra algunos de mis experimentos mientras aprendo programación.</p>
-    <div class="experimentos">
-        <article class="experimento">
-            <h3>🌐 Experimento HTML</h3>
-            <p>Estructuras semánticas, enlaces y elementos interactivos.</p>
-            <button class="experimentoBtn">Ejecutar experimento</button>
-            <div class="resultadoExperimento">Esperando...</div>
-        </article>
-        <article class="experimento">
-            <h3>🎨 Experimento CSS</h3>
-            <p>Animaciones, transformaciones y efectos visuales.</p>
-            <button class="experimentoBtn">Activar CSS</button>
-            <div class="resultadoExperimento">Esperando...</div>
-        </article>
-        <article class="experimento">
-            <h3>⚡ Experimento JavaScript</h3>
-            <p>Eventos, DOM, interacción y lógica.</p>
-            <button class="experimentoBtn">Ejecutar JavaScript</button>
-            <div class="resultadoExperimento">Esperando...</div>
-        </article>
+        <div class="sun">
+            <div class="sun-glow"></div>
+        </div>
+
+        <div class="cloud cloud-1">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="cloud cloud-2">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="cloud cloud-3">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="mountains mountains-back"></div>
+        <div class="mountains mountains-front"></div>
+
+        <div class="water"></div>
+
+        <div class="wind-layer"></div>
+
+        <div id="butterflies"></div>
+        <div id="leaves"></div>
+        <div id="particles"></div>
+
     </div>
-</section>
 
-<section id="cyberLab">
-    <span class="etiqueta">06 · CYBERSECURITY</span>
-    <h2>🔐 Mini laboratorio de ciberseguridad</h2>
-    <p>Probá qué tan segura sería una contraseña. Este ejercicio es educativo y no guarda lo que escribís.</p>
-    <input type="password" id="passwordInput" placeholder="Escribí una contraseña" autocomplete="new-password">
-    <div id="passwordMeter"><div id="passwordBar"></div></div>
-    <p id="passwordResultado">Esperando análisis...</p>
-    <div id="passwordChecks"></div>
-</section>
 
-<section id="estado">
-    <span class="etiqueta">07 · SYSTEM</span>
-    <h2>📡 Estado del sistema</h2>
-    <div class="estadoGrid">
-        <div><span>🌐 Portfolio</span><strong>ONLINE</strong></div>
-        <div><span>💻 HTML</span><strong>ACTIVO</strong></div>
-        <div><span>🎨 CSS</span><strong>ACTIVO</strong></div>
-        <div><span>⚡ JavaScript</span><strong id="jsEstado">DETECTANDO...</strong></div>
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header class="navbar">
+
+        <a href="#inicio"
+           class="brand"
+           aria-label="Volver al inicio">
+
+            <span class="brand-symbol">V</span>
+
+            <span class="brand-name">
+                Valentina<span>.</span>
+            </span>
+
+        </a>
+
+
+        <nav class="desktop-nav" aria-label="Navegación principal">
+
+            <a href="#sobre-mi">Sobre mí</a>
+            <a href="#skills">Conocimientos</a>
+            <a href="#proyectos">Proyectos</a>
+            <a href="#experiencia">Experiencia</a>
+            <a href="#contacto">Contacto</a>
+
+        </nav>
+
+
+        <a href="https://github.com/valchuminodevop-cloud"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="nav-github magnetic">
+
+            GitHub
+            <span>↗</span>
+
+        </a>
+
+
+        <button class="menu-toggle"
+                type="button"
+                aria-label="Abrir menú"
+                aria-expanded="false">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+    </header>
+
+
+    <!-- =====================================================
+         MOBILE MENU
+    ====================================================== -->
+
+    <div class="mobile-menu">
+
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#skills">Conocimientos</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#experiencia">Experiencia</a>
+        <a href="#contacto">Contacto</a>
+
+        <a href="https://github.com/valchuminodevop-cloud"
+           target="_blank"
+           rel="noopener noreferrer">
+
+            GitHub ↗
+
+        </a>
+
     </div>
-</section>
 
-<section id="salario">
-    <span class="etiqueta">08 · DISPONIBILIDAD</span>
-    <h2>Expectativa salarial</h2>
-    <details>
-        <summary><strong>💰 Salario mínimo aceptado</strong></summary>
-        <p>1200000 $ Neto mensual <i>(Salario mínimo aceptado)</i></p>
-    </details>
-</section>
 
-</main>
+    <main id="inicio">
 
-<footer id="contacto">
-    <span class="etiqueta">09 · CONTACTO</span>
-    <h2>🌙 Contactarme</h2>
-    <details>
-        <summary>📄 Descargar CV</summary>
-        <p><a href="cv.pdf" download>Currículum Vitae</a></p>
-    </details>
-    <details>
-        <summary>📍 Ubicación</summary>
-        <p><b>San Telmo</b></p>
-    </details>
-    <details>
-        <summary>📧 Email</summary>
-        <p><a href="mailto:valchuginko@hotmail.com">Enviar correo</a> <button class="miniBtn" data-copiar="valchuginko@hotmail.com">📋 Copiar</button></p>
-    </details>
-    <details>
-        <summary>📞 Teléfono</summary>
-        <p><a href="tel:+54-1171201745">Número de teléfono</a></p>
-    </details>
-    <details>
-        <summary>💼 LinkedIn</summary>
-        <p><a href="https://www.linkedin.com/in/valentinamiao/" target="_blank" rel="noopener">LinkedIn</a></p>
-    </details>
-    <details>
-        <summary>😼 GitHub</summary>
-        <p><a href="https://github.com/valchuminodevop-cloud" target="_blank" rel="noopener">GitHub</a></p>
-    </details>
-    <hr>
-    <a href="#inicio"><button>⬆ Volver al inicio</button></a>
-    <p class="footerFinal">🌻 Hecho mientras aprendo. 🌻</p>
-</footer>
 
-<div id="toast" role="status" aria-live="polite"></div>
-<div id="easterEgg" aria-hidden="true"><span>🌻</span><strong>Encontraste el jardín secreto.</strong><small>Seguí explorando.</small></div>
+        <!-- =================================================
+             HERO
+        ================================================== -->
 
-<script src="script.js"></script>
+        <section class="hero section">
+
+            <div class="hero-content reveal">
+
+                <div class="availability">
+
+                    <span class="availability-dot"></span>
+
+                    Disponible para oportunidades Junior
+
+                </div>
+
+
+                <p class="hero-eyebrow">
+                    IT · WEB DEVELOPMENT · CYBERSECURITY
+                </p>
+
+
+                <h1>
+
+                    Valentina
+                    <span>Mino</span>
+
+                </h1>
+
+
+                <h2>
+                    Junior Web Developer
+                </h2>
+
+
+                <p class="hero-description">
+
+                    Estoy construyendo mi camino en IT a través del
+                    desarrollo web, la programación y el aprendizaje
+                    continuo en tecnología y ciberseguridad.
+
+                </p>
+
+
+                <div class="hero-actions">
+
+                    <a href="#proyectos"
+                       class="btn btn-primary magnetic">
+
+                        Ver mis proyectos
+                        <span>↓</span>
+
+                    </a>
+
+
+                    <a href="https://github.com/valchuminodevop-cloud"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="btn btn-secondary magnetic">
+
+                        GitHub
+                        <span>↗</span>
+
+                    </a>
+
+                </div>
+
+
+                <div class="hero-social-proof">
+
+                    <span>
+                        HTML
+                    </span>
+
+                    <span>
+                        CSS
+                    </span>
+
+                    <span>
+                        JavaScript
+                    </span>
+
+                    <span>
+                        Python
+                    </span>
+
+                    <span>
+                        Git
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- FOTO -->
+
+            <div class="hero-photo-wrapper reveal">
+
+                <div class="photo-orbit orbit-one"></div>
+                <div class="photo-orbit orbit-two"></div>
+
+                <div class="photo-glow"></div>
+
+                <div class="hero-photo-card tilt-card">
+
+                    <div class="photo-frame">
+
+                        <img src="valchu.jpg"
+                             alt="Foto profesional de Valentina Mino"
+                             class="profile-photo">
+
+                    </div>
+
+
+                    <div class="photo-badge badge-top">
+
+                        <span class="badge-icon">✦</span>
+
+                        <div>
+                            <strong>Learning</strong>
+                            <small>Every day</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="photo-badge badge-bottom">
+
+                        <span class="status-mini"></span>
+
+                        <div>
+                            <strong>IT Journey</strong>
+                            <small>In progress</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="scroll-indicator">
+
+                <span>SCROLL</span>
+
+                <div class="scroll-line"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SOBRE MI
+        ================================================== -->
+
+        <section id="sobre-mi"
+                 class="section content-section">
+
+            <div class="section-heading reveal">
+
+                <span class="section-number">
+                    01
+                </span>
+
+                <div>
+
+                    <p class="section-label">
+                        CONOCEME
+                    </p>
+
+                    <h2>
+                        Sobre mí
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="about-grid">
+
+                <div class="about-main glass-card reveal">
+
+                    <span class="quote-mark">“</span>
+
+                    <p class="about-lead">
+
+                        Estoy construyendo mi perfil profesional
+                        dentro del mundo IT, combinando desarrollo web,
+                        programación y una creciente curiosidad por
+                        la tecnología y la ciberseguridad.
+
+                    </p>
+
+
+                    <p>
+
+                        Mi objetivo es seguir aprendiendo, transformar
+                        cada conocimiento en proyectos reales y crecer
+                        dentro de equipos donde pueda aportar,
+                        aprender y asumir nuevos desafíos.
+
+                    </p>
+
+
+                    <div class="about-highlight">
+
+                        <span class="highlight-icon">✦</span>
+
+                        <div>
+
+                            <strong>
+                                Mi objetivo
+                            </strong>
+
+                            <p>
+                                Encontrar una oportunidad Junior en IT
+                                donde pueda seguir desarrollándome
+                                profesionalmente.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="about-side">
+
+                    <div class="mini-stat glass-card reveal">
+
+                        <span class="stat-icon">01</span>
+
+                        <strong>
+                            Desarrollo
+                        </strong>
+
+                        <p>
+                            Interfaces web modernas y funcionales.
+                        </p>
+
+                    </div>
+
+
+                    <div class="mini-stat glass-card reveal">
+
+                        <span class="stat-icon">02</span>
+
+                        <strong>
+                            IT
+                        </strong>
+
+                        <p>
+                            Aprendizaje continuo de herramientas
+                            y tecnologías.
+                        </p>
+
+                    </div>
+
+
+                    <div class="mini-stat glass-card reveal">
+
+                        <span class="stat-icon">03</span>
+
+                        <strong>
+                            Cybersecurity
+                        </strong>
+
+                        <p>
+                            Explorando fundamentos y laboratorios
+                            prácticos.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SKILLS
+        ================================================== -->
+
+        <section id="skills"
+                 class="section content-section">
+
+            <div class="section-heading reveal">
+
+                <span class="section-number">
+                    02
+                </span>
+
+                <div>
+
+                    <p class="section-label">
+                        MI STACK
+                    </p>
+
+                    <h2>
+                        Conocimientos IT
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <p class="section-intro reveal">
+
+                Tecnologías y herramientas que estoy utilizando,
+                practicando y aprendiendo durante mi desarrollo
+                profesional.
+
+            </p>
+
+
+            <div class="skills-grid">
+
+
+                <!-- DESARROLLO -->
+
+                <article class="skill-category glass-card reveal">
+
+                    <div class="skill-category-header">
+
+                        <span class="skill-category-icon">
+                            &lt;/&gt;
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Desarrollo web
+                            </h3>
+
+                            <p>
+                                Construcción de interfaces
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="skill-list">
+
+                        <div class="skill-item">
+
+                            <span>HTML</span>
+                            <small>Fundamentos</small>
+
+                        </div>
+
+                        <div class="skill-item">
+
+                            <span>CSS</span>
+                            <small>Responsive</small>
+
+                        </div>
+
+                        <div class="skill-item">
+
+                            <span>JavaScript</span>
+                            <small>En práctica</small>
+
+                        </div>
+
+                        <div class="skill-item">
+
+                            <span>React</span>
+                            <small>Explorando</small>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PROGRAMACION -->
+
+                <article class="skill-category glass-card reveal">
+
+                    <div class="skill-category-header">
+
+                        <span class="skill-category-icon">
+                            { }
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Programación
+                            </h3>
+
+                            <p>
+                                Lógica y desarrollo
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="skill-list">
+
+                        <div class="skill-item">
+
+                            <span>Python</span>
+                            <small>En aprendizaje</small>
+
+                        </div>
+
+                        <div class="skill-item">
+
+                            <span>SQL</span>
+                            <small>Fundamentos</small>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- HERRAMIENTAS -->
+
+                <article class="skill-category glass-card reveal">
+
+                    <div class="skill-category-header">
+
+                        <span class="skill-category-icon">
+                            ⚙
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Herramientas
+                            </h3>
+
+                            <p>
+                                Workflow diario
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="skill-list">
+
+                        <div class="skill-item">
+
+                            <span>Git</span>
+                            <small>En práctica</small>
+
+                        </div>
+
+                        <div class="skill-item">
+
+                            <span>GitHub</span>
+                            <small>Uso frecuente</small>
+
+                        </div>
+
+                        <div class="skill-item">
+
+                            <span>VS Code</span>
+                            <small>Uso diario</small>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- IT -->
+
+                <article class="skill-category glass-card reveal">
+
+                    <div class="skill-category-header">
+
+                        <span class="skill-category-icon">
+                            ◈
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                IT & Cybersecurity
+                            </h3>
+
+                            <p>
+                                Exploración y aprendizaje
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="skill-list">
+
+                        <div class="skill-item">
+
+                            <span>TryHackMe</span>
+                            <small>Curso online</small>
+
+                        </div>
+
+                        <div class="skill-item">
+
+                            <span>Networking</span>
+                            <small>Fundamentos</small>
+
+                        </div>
+
+                        <div class="skill-item">
+
+                            <span>Linux</span>
+                            <small>Explorando</small>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- IA -->
+
+                <article class="skill-category glass-card reveal skill-wide">
+
+                    <div class="skill-category-header">
+
+                        <span class="skill-category-icon">
+                            AI
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Inteligencia artificial
+                            </h3>
+
+                            <p>
+                                Herramientas para aprendizaje y productividad
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="ai-skills">
+
+                        <div class="ai-pill">
+
+                            <span>Claude</span>
+
+                            <small>
+                                Uso avanzado
+                            </small>
+
+                        </div>
+
+                        <div class="ai-pill">
+
+                            <span>IA aplicada</span>
+
+                            <small>
+                                En crecimiento
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PROYECTOS
+        ================================================== -->
+
+        <section id="proyectos"
+                 class="section content-section projects-section">
+
+            <div class="section-heading reveal">
+
+                <span class="section-number">
+                    03
+                </span>
+
+                <div>
+
+                    <p class="section-label">
+                        LO QUE ESTOY CONSTRUYENDO
+                    </p>
+
+                    <h2>
+                        Proyectos destacados
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <p class="section-intro reveal">
+
+                Proyectos reales de mi GitHub que forman parte
+                de mi aprendizaje y evolución dentro de IT.
+
+            </p>
+
+
+            <div class="projects-grid">
+
+
+                <!-- PROYECTO 1 -->
+
+                <article class="project-card glass-card tilt-card reveal">
+
+                    <div class="project-preview project-preview-1">
+
+                        <div class="preview-browser">
+
+                            <div class="browser-top">
+
+                                <span></span>
+                                <span></span>
+                                <span></span>
+
+                            </div>
+
+                            <div class="preview-content">
+
+                                <div class="preview-line long"></div>
+                                <div class="preview-line medium"></div>
+
+                                <div class="preview-boxes">
+
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <span class="project-number">
+                            01
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-content">
+
+                        <div class="project-meta">
+
+                            <span>
+                                WEB DEVELOPMENT
+                            </span>
+
+                            <span>
+                                01
+                            </span>
+
+                        </div>
+
+
+                        <h3>
+                            Portfolio Valchu
+                        </h3>
+
+
+                        <p>
+
+                            Portfolio personal enfocado en presentar
+                            mi evolución profesional, conocimientos,
+                            proyectos y aprendizaje dentro de IT.
+
+                        </p>
+
+
+                        <div class="tech-tags">
+
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+
+                        </div>
+
+
+                        <div class="project-actions">
+
+                            <a href="https://github.com/valchuminodevop-cloud/Portfolio-valchu"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="project-link magnetic">
+
+                                Ver código
+                                <span>↗</span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PROYECTO 2 -->
+
+                <article class="project-card glass-card tilt-card reveal featured-project">
+
+                    <div class="project-preview project-preview-2">
+
+                        <div class="network-animation">
+
+                            <div class="network-node node-1"></div>
+                            <div class="network-node node-2"></div>
+                            <div class="network-node node-3"></div>
+                            <div class="network-node node-4"></div>
+
+                            <div class="network-line line-1"></div>
+                            <div class="network-line line-2"></div>
+                            <div class="network-line line-3"></div>
+
+                        </div>
+
+                        <span class="project-number">
+                            02
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-content">
+
+                        <div class="project-meta">
+
+                            <span>
+                                PYTHON · IT
+                            </span>
+
+                            <span>
+                                02
+                            </span>
+
+                        </div>
+
+
+                        <h3>
+                            Monitor de WiFi
+                        </h3>
+
+
+                        <p>
+
+                            Proyecto desarrollado en Python orientado
+                            al monitoreo del estado de redes domésticas,
+                            explorando programación y conceptos de
+                            networking.
+
+                        </p>
+
+
+                        <div class="tech-tags">
+
+                            <span>Python</span>
+                            <span>Networking</span>
+                            <span>IT</span>
+
+                        </div>
+
+
+                        <div class="project-actions">
+
+                            <a href="https://github.com/valchuminodevop-cloud/monitor-de-wifi-python"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="project-link magnetic">
+
+                                Ver código
+                                <span>↗</span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PROYECTO 3 -->
+
+                <article class="project-card glass-card tilt-card reveal">
+
+                    <div class="project-preview project-preview-3">
+
+                        <div class="code-window">
+
+                            <div class="code-row">
+                                <i></i>
+                                <i></i>
+                                <i></i>
+                            </div>
+
+                            <div class="code-row">
+                                <b></b>
+                                <b></b>
+                            </div>
+
+                            <div class="code-row">
+                                <i></i>
+                                <i></i>
+                            </div>
+
+                            <div class="code-row">
+                                <b></b>
+                                <b></b>
+                                <b></b>
+                            </div>
+
+                        </div>
+
+                        <span class="project-number">
+                            03
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-content">
+
+                        <div class="project-meta">
+
+                            <span>
+                                WEB PROJECT
+                            </span>
+
+                            <span>
+                                03
+                            </span>
+
+                        </div>
+
+
+                        <h3>
+                            Valchu Proyecto
+                        </h3>
+
+
+                        <p>
+
+                            Proyecto de práctica dentro de mi
+                            recorrido de desarrollo web y aprendizaje
+                            de tecnologías frontend.
+
+                        </p>
+
+
+                        <div class="tech-tags">
+
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+
+                        </div>
+
+
+                        <div class="project-actions">
+
+                            <a href="https://github.com/valchuminodevop-cloud/valchu-proyecto-10"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="project-link magnetic">
+
+                                Ver código
+                                <span>↗</span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- GITHUB FEATURE -->
+
+            <div class="github-feature glass-card reveal">
+
+                <div class="github-orbit">
+
+                    <span>⌘</span>
+
+                </div>
+
+
+                <div class="github-feature-content">
+
+                    <p class="section-label">
+                        OPEN SOURCE · APRENDIZAJE
+                    </p>
+
+                    <h3>
+                        Todo mi código,
+                        <span>en evolución.</span>
+                    </h3>
+
+                    <p>
+
+                        Estos proyectos son parte de mi proceso de
+                        aprendizaje. En mi GitHub podés seguir lo que
+                        estoy construyendo, experimentando y mejorando.
+
+                    </p>
+
+                </div>
+
+
+                <a href="https://github.com/valchuminodevop-cloud"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn btn-primary magnetic">
+
+                    Explorar GitHub
+                    <span>↗</span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             EXPERIENCIA
+        ================================================== -->
+
+        <section id="experiencia"
+                 class="section content-section">
+
+            <div class="section-heading reveal">
+
+                <span class="section-number">
+                    04
+                </span>
+
+                <div>
+
+                    <p class="section-label">
+                        EXPERIENCIA TRANSFERIBLE
+                    </p>
+
+                    <h2>
+                        También sé trabajar con personas
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="experience-grid">
+
+
+                <div class="experience-intro glass-card reveal">
+
+                    <span class="experience-icon">
+                        ✦
+                    </span>
+
+                    <h3>
+                        Atención al cliente
+                    </h3>
+
+                    <p>
+
+                        Mi experiencia trabajando con personas me
+                        permitió desarrollar habilidades que también
+                        son importantes dentro de un equipo IT.
+
+                    </p>
+
+                </div>
+
+
+                <div class="experience-items">
+
+                    <div class="experience-item glass-card reveal">
+
+                        <span class="experience-number">
+                            01
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Resolución de problemas
+                            </h3>
+
+                            <p>
+                                Analizar situaciones, encontrar soluciones
+                                y acompañar al usuario.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="experience-item glass-card reveal">
+
+                        <span class="experience-number">
+                            02
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Comunicación
+                            </h3>
+
+                            <p>
+                                Escuchar, explicar y adaptar la comunicación
+                                según cada persona.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="experience-item glass-card reveal">
+
+                        <span class="experience-number">
+                            03
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Adaptabilidad
+                            </h3>
+
+                            <p>
+                                Aprender rápidamente y trabajar en contextos
+                                dinámicos.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="experience-item glass-card reveal">
+
+                        <span class="experience-number">
+                            04
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Trabajo bajo presión
+                            </h3>
+
+                            <p>
+                                Mantener el foco y buscar soluciones
+                                ante situaciones exigentes.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FORMACIÓN
+        ================================================== -->
+
+        <section class="section learning-section">
+
+            <div class="learning-card glass-card reveal">
+
+                <div class="learning-icon">
+                    ✦
+                </div>
+
+                <div>
+
+                    <p class="section-label">
+                        APRENDIZAJE CONTINUO
+                    </p>
+
+                    <h2>
+                        Mi portfolio también es parte del aprendizaje.
+                    </h2>
+
+                    <p>
+
+                        Estoy construyendo mis conocimientos paso a paso,
+                        practicando con proyectos y utilizando plataformas
+                        como TryHackMe para seguir explorando IT y
+                        ciberseguridad.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CONTACTO
+        ================================================== -->
+
+        <section id="contacto"
+                 class="section contact-section">
+
+            <div class="contact-card reveal">
+
+                <div class="contact-decoration">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+
+                <p class="section-label">
+                    ¿HABLAMOS?
+                </p>
+
+
+                <h2>
+
+                    Estoy buscando mi
+                    <span>próxima oportunidad.</span>
+
+                </h2>
+
+
+                <p>
+
+                    Si estás buscando una persona con ganas de aprender,
+                    crecer y aportar dentro de un equipo IT, me encantaría
+                    conocerte.
+
+                </p>
+
+
+                <div class="contact-actions">
+
+                    <a href="mailto:valchumino@gmail.com"
+                       class="btn btn-primary magnetic">
+
+                        Escribime
+                        <span>↗</span>
+
+                    </a>
+
+
+                    <a href="https://github.com/valchuminodevop-cloud"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="btn btn-secondary magnetic">
+
+                        Ver GitHub
+                        <span>↗</span>
+
+                    </a>
+
+                </div>
+
+
+                <a href="mailto:valchumino@gmail.com"
+                   class="contact-email">
+
+                    valchumino@gmail.com
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-main">
+
+            <div class="footer-brand">
+
+                <a href="#inicio"
+                   class="brand">
+
+                    <span class="brand-symbol">
+                        V
+                    </span>
+
+                    <span class="brand-name">
+                        Valentina<span>.</span>
+                    </span>
+
+                </a>
+
+                <p>
+                    Junior Web Developer · IT · Cybersecurity
+                </p>
+
+            </div>
+
+
+            <div class="footer-message">
+
+                <span class="footer-heart">
+                    ♡
+                </span>
+
+                <h3>
+                    Gracias por visitar mi portfolio.
+                </h3>
+
+                <p>
+
+                    Este sitio está en construcción y forma parte
+                    de mi proceso de aprendizaje y crecimiento en IT.
+
+                </p>
+
+                <small>
+
+                    Cada actualización representa algo nuevo que
+                    estoy aprendiendo, creando o mejorando.
+
+                </small>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="#sobre-mi">
+                    Sobre mí
+                </a>
+
+                <a href="#skills">
+                    Conocimientos
+                </a>
+
+                <a href="#proyectos">
+                    Proyectos
+                </a>
+
+                <a href="https://github.com/valchuminodevop-cloud"
+                   target="_blank"
+                   rel="noopener noreferrer">
+
+                    GitHub ↗
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 Valentina Mino
+            </span>
+
+            <span>
+                Hecho con HTML · CSS · JavaScript
+            </span>
+
+            <span>
+                En construcción ✦
+            </span>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="script.js"></script>
+
 </body>
 </html>
